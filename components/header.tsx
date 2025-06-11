@@ -139,7 +139,7 @@ export default function Header() {
                           <motion.button
                             whileTap={{ scale: 0.98 }}
                             onClick={() => setIsProgramsExpanded(!isProgramsExpanded)}
-                            className="w-full flex items-center justify-between px-4 py-3 text-left border-b border-gray-200 hover:bg-gray-50 transition-colors"
+                            className="w-full flex items-center justify-between px-4 py-3 text-left border-b border-gray-200 hover:bg-white transition-colors"
                           >
                             <span
                               className={`font-medium ${isProgramsExpanded ? "text-purple-600 underline" : "text-gray-900"}`}
@@ -160,7 +160,7 @@ export default function Header() {
                                 animate={{ height: "auto", opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
                                 transition={{ duration: 0.3 }}
-                                className="bg-gray-50 mx-4 rounded-md overflow-hidden"
+                                className="bg-white mx-4 rounded-md overflow-hidden"
                               >
                                 <div className="py-2">
                                   {programSubItems.map((subItem) => (
@@ -181,7 +181,7 @@ export default function Header() {
                       ) : (
                         <Link
                           href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
-                          className="block px-4 py-3 text-gray-900 font-medium border-b border-gray-200 hover:bg-gray-50 transition-colors"
+                          className="block px-4 py-3 text-gray-900 font-medium border-b border-gray-200 hover:bg-white transition-colors"
                           onClick={toggleMenu}
                         >
                           {item}
@@ -193,7 +193,7 @@ export default function Header() {
               </nav>
 
               {/* Contact Info */}
-              <div className="p-4 border-t border-gray-200 bg-gray-50">
+              <div className="p-4 border-t border-gray-200 bg-white">
                 <div className="flex items-center space-x-4">
                   <MessageCircle className="h-6 w-6 text-green-600" />
                   <Send className="h-6 w-6 text-blue-600" />

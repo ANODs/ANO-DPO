@@ -62,7 +62,8 @@ export default function AboutSection() {
                   <Card className="bg-purple-50 border-0">
                     <CardContent className="p-4">
                       <blockquote className="text-sm font-medium text-purple-900 italic leading-relaxed">
-                        "Образование — это самое мощное оружие, которое можно использовать, чтобы изменить мир"
+                      Наша миссия заключается в развитии человеческого капитала страны путем внедрения передовых образовательных технологий 
+                      и стандартов.
                       </blockquote>
                     </CardContent>
                   </Card>
@@ -83,33 +84,30 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
             viewport={{ once: true }}
-            className="lg:col-span-2 space-y-6 hidden lg:block"
+            className="lg:col-span-2 space-y-6 hidden lg:block relative w-full"
           >
-            <Card className="bg-blue-50 border-0">
+            <Card className="bg-[#D4D2F9] border-0 absolute z-10 mx-5 mt-10">
               <CardContent className="p-6">
-                <blockquote className="text-lg font-medium text-blue-900 italic leading-relaxed">
-                  "Образование — это самое мощное оружие, которое можно использовать, чтобы изменить мир"
+                <blockquote className="text-lg font-medium text-blue-900 italic leading-relaxed pr-40">
+                Наша миссия заключается в развитии человеческого капитала страны путем внедрения передовых образовательных технологий 
+                и стандартов.
                 </blockquote>
               </CardContent>
             </Card>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="relative h-32 rounded-lg overflow-hidden">
+            <div className="absolute w-full !h-[400px] rounded-lg overflow-hidden ">
                 <Image
-                  src="/placeholder.svg?height=128&width=128"
+                  src="/aboutbg.png"
+                  alt="задний план"
+                  fill
+                  className="object-cover"
+                />
+                <Image
+                  src="/aboutman.png"
                   alt="Портрет эксперта"
                   fill
-                  className="object-cover"
+                  className="object-cover z-10"
                 />
-              </div>
-              <div className="relative h-32 rounded-lg overflow-hidden">
-                <Image
-                  src="/placeholder.svg?height=128&width=128"
-                  alt="3D рендер выпускной шапочки"
-                  fill
-                  className="object-cover"
-                />
-              </div>
             </div>
           </motion.div>
         </div>

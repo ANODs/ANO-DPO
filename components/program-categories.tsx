@@ -48,7 +48,7 @@ export default function ProgramCategories() {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="py-8 lg:py-16 bg-gray-50"
+      className="py-8 lg:py-16 bg-white"
     >
       <div className="container px-4">
         <motion.h2

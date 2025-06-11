@@ -14,6 +14,17 @@ export default function PartnersSection() {
     { id: 3, name: "Аванти", logo: "/avanti.png" },
     { id: 4, name: "Абилимпикс", logo: "/abilimp.png" },
     { id: 5, name: "Центр Технического Творчества", logo: "/technoart.png" },
+    { id: 6, name: "Avanti group", logo: "/AvantiGroup.png" },
+    { id: 7, name: "ВОИР", logo: "/VOIR.png" },
+    { id: 8, name: "АНО Мир", logo: "/anoMir.png" },
+    { id: 9, name: "Абрис група", logo: "/abris.png" },
+    { id: 10, name: "Центр Инноваций", logo: "/ino.png" },
+    { id: 11, name: "Modum lab", logo: "/modum lab.png" },
+    { id: 12, name: "Новые технологии", logo: "/newTech.png" },
+    { id: 13, name: "Runa", logo: "/runa.png" },
+    { id: 14, name: "kedr", logo: "/kedr.png" },
+    { id: 15, name: "Vector groun", logo: "/vectorGroup.png" },
+
   ]
 
   const { width } = useWindowSize()
@@ -45,7 +56,7 @@ export default function PartnersSection() {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="py-8 lg:py-16 bg-gray-50"
+      className="py-8 lg:py-16 bg-white"
     >
       <div className="container mx-auto px-4">
         <motion.h2
