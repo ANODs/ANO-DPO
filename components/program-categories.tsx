@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import Image from "next/image"
 
 export default function ProgramCategories() {
   const categories = [
@@ -12,32 +13,32 @@ export default function ProgramCategories() {
       description:
         "Система программ обучения, направленных на расширение, углубление и обновление профессиональных знаний, умений и навыков слушателей, независимо от их базового образования",
       programCount: "50+ программ",
-      bgColor: "bg-purple-100",
-      textColor: "text-purple-900",
+      bgColor: "bg-[#D4D2F9]",
     },
     {
       title: "Повышение квалификации",
       description:
         "Система программ обучения, направленных на расширение, углубление и обновление профессиональных знаний, умений и навыков слушателей, независимо от их базового образования",
       programCount: "50+ программ",
-      bgColor: "bg-gray-100",
-      textColor: "text-gray-900",
+      image: "./categories-visual-1.svg",
+      bgColor: "bg-[#F5F5F5]",
     },
     {
       title: "Мастер классы",
       description:
         "Система программ обучения, направленных на расширение, углубление и обновление профессиональных знаний, умений и навыков слушателей, независимо от их базового образования",
+      image: "./categories-visual-2.svg",
       programCount: "50+ программ",
-      bgColor: "bg-white",
-      textColor: "text-gray-900",
+      bgColor: "bg-[#F5F5F5]",
+
     },
     {
       title: "Экскурсии",
       description:
         "Система программ обучения, направленных на расширение, углубление и обновление профессиональных знаний, умений и навыков слушателей, независимо от их базового образования",
       programCount: "50+ программ",
-      bgColor: "bg-green-100",
-      textColor: "text-green-900",
+      bgColor: "bg-[#F2FCBF]",
+
     },
   ]
 
@@ -71,24 +72,25 @@ export default function ProgramCategories() {
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className={`h-full ${category.bgColor} border-0 hover:shadow-lg transition-shadow duration-300`}>
-                <CardHeader className="pb-3 lg:pb-6">
-                  <CardTitle className={`text-lg lg:text-2xl ${category.textColor}`}>{category.title}</CardTitle>
+              <Card className={`h-full ${category.bgColor} relative border-0 hover:shadow-lg transition-shadow duration-300`}>
+                <CardHeader className="pb-3 lg:pb-6 relative z-10">
+                  <CardTitle className={`text-lg lg:text-2xl `}>{category.title}</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4 lg:space-y-6">
-                  <p className={`text-xs lg:text-sm leading-relaxed ${category.textColor.replace("900", "700")}`}>
+                <CardContent className=" lg:space-y-6 relative z-10">
+                  <p className={`text-xs lg:text-sm leading-relaxed mb-3`}>
                     {category.description}
                   </p>
-                  <div className="space-y-2 lg:space-y-3">
-                    <Badge variant="secondary" className="text-xs lg:text-sm">
+                  <div className="">
+                    <Badge className="bg-transparent text-black border-[1px] border-black rounded-[100px] lg:text-sm mb-6">
                       {category.programCount}
                     </Badge>
                     <div>
-                      <Button variant="outline" className="w-full h-11 lg:h-auto text-sm lg:text-base">
+                      <Button variant="outline" className="w-full bg-[#1a1a1a] text-white h-11 lg:h-auto text-sm lg:text-base">
                         Посмотреть все программы
                       </Button>
                     </div>
                   </div>
+                  {category.image && <Image className="!absolute -z-10" src={category.image} fill alt={'visual element'} />}
                 </CardContent>
               </Card>
             </motion.div>

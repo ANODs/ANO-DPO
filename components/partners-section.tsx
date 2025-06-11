@@ -116,7 +116,16 @@ export default function PartnersSection() {
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          {/* <span className="text-sm text-gray-600">{page + 1} / {totalPages}</span> */}
+          <div className="flex justify-center gap-1">
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <div
+                key={index}
+                className={`w-[10px] h-[10px] rounded-full ${
+                  page === index ? "bg-[#666]" : "bg-[#d9d9d9]"
+                }`}
+              />
+            ))}
+          </div>
           <Button
             variant="outline"
             size="icon"

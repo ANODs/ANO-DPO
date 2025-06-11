@@ -13,7 +13,7 @@ export default function PopularPrograms() {
   const programs = [
     {
       id: 1,
-      title: "Робототехника и автоматизация",
+      title: "Робототехника",
       description: "Краткое описание. Краткое описание.",
       duration: "16 ч.",
       format: "Дистанционно",
@@ -150,25 +150,7 @@ export default function PopularPrograms() {
             <Link href="/программы" className="text-sm text-brand-text-light hover:text-blue-600 transition-colors">
               Посмотреть еще
             </Link>
-            <div className="flex items-center space-x-3 text-sm text-brand-text-light">
-              <button
-                onClick={() => paginate(-1)}
-                className="p-1 hover:text-brand-text-dark transition-colors"
-                aria-label="Previous program"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <span>
-                {page + 1}/{totalPages}
-              </span>
-              <button
-                onClick={() => paginate(1)}
-                className="p-1 hover:text-brand-text-dark transition-colors"
-                aria-label="Next program"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
+
           </motion.div>
 
           {/* Right Column: Slider */}
@@ -203,10 +185,10 @@ export default function PopularPrograms() {
                 {currentPrograms.map((program) => (
                   <Card
                     key={program.id}
-                    className="h-full flex flex-col border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+                    className="p-[15px] h-full flex flex-col justify-center items-center border-[1px] border-black rounded-[10px]"
                   >
-                    <CardHeader className="p-0">
-                      <div className="relative h-40 rounded-t-lg overflow-hidden">
+                    <CardHeader className="p-0 mb-3">
+                      <div className="relative w-[247px] h-[194px] rounded-[10px] overflow-hidden">
                         <Image
                           src={program.image || "/placeholder.svg"}
                           alt={program.title}
@@ -216,24 +198,23 @@ export default function PopularPrograms() {
                         />
                       </div>
                     </CardHeader>
-                    <CardContent className="p-4 flex flex-col flex-grow">
-                      <CardTitle className="text-md font-semibold text-brand-text-dark mb-1 line-clamp-2">
+                    <CardContent className="p-0 flex flex-col flex-grow">
+                      <CardTitle className="text-[22px] font-semibold mb-3">
                         {program.title}
                       </CardTitle>
-                      <p className="text-xs text-brand-text-light mb-3 line-clamp-2 flex-grow">{program.description}</p>
-                      <div className="flex items-center space-x-3 text-xs text-brand-text-light mb-3">
+                      <p className="mb-3 flex-grow">{program.description}</p>
+                      <div className="flex flex-col text-sm mb-3">
                         <div className="flex items-center space-x-1">
-                          <Clock className="h-3 w-3" />
-                          <span>{program.duration}</span>
+                          <Clock className="h-[21px] w-[21px]" />
+                          <span className="text-[14px]">{program.duration}</span>
                         </div>
-                        <div className="flex items-center space-x-1">
-                          <Monitor className="h-3 w-3" />
+                        <div className="flex items-center  space-x-1">
                           <span>{program.format}</span>
                         </div>
                       </div>
                       <Button
                         variant="link"
-                        className="p-0 text-sm text-blue-600 self-start flex items-center group mt-auto"
+                        className="h-min p-0 text-[18px] flex justify-between items-center group"
                       >
                         Подробнее
                         <span className="ml-1.5 bg-brand-dark-button text-white rounded-full p-0.5 group-hover:bg-blue-700 transition-colors">
@@ -246,6 +227,25 @@ export default function PopularPrograms() {
               </motion.div>
             </AnimatePresence>
           </motion.div>
+          <div className="flex justify-between items-center space-x-3 text-sm">
+            <button
+              onClick={() => paginate(-1)}
+              className="p-1 hover:text-brand-text-dark transition-colors"
+              aria-label="Previous program"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <span>
+                {page + 1}/{totalPages}
+              </span>
+            <button
+              onClick={() => paginate(1)}
+              className="p-1 hover:text-brand-text-dark transition-colors"
+              aria-label="Next program"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       </div>
     </motion.section>

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { GraduationCap, Menu, X, Plus, Minus, MessageCircle, Send } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { useState } from "react"
 
 export default function Header() {
@@ -34,13 +35,12 @@ export default function Header() {
           <div className="hidden lg:grid lg:grid-cols-3 gap-4 items-center">
             {/* Logo */}
             <motion.div whileHover={{ scale: 1.05 }} className="flex items-center space-x-3">
-              <GraduationCap className="h-8 w-8 text-blue-600" />
-              <span className="font-bold text-lg text-gray-900">Академия профессиональных наставников</span>
+              <Image src="/logo.png" width={200} height={65} alt="logo" />
             </motion.div>
 
             {/* Navigation Menu */}
-            <nav className="flex justify-center">
-              <ul className="flex space-x-8">
+            <nav className="flex justify-center items-center">
+              <ul className="flex justify-center items-center space-x-8">
                 {menuItems.map((item, index) => (
                   <motion.li
                     key={item}
@@ -74,8 +74,7 @@ export default function Header() {
           <div className="lg:hidden flex items-center justify-between">
             {/* Mobile Logo */}
             <motion.div whileHover={{ scale: 1.05 }} className="flex items-center space-x-3">
-              <GraduationCap className="h-6 w-6 text-blue-600" />
-              <span className="font-bold text-base text-gray-900">АПН</span>
+              <Image src="/logo.png" width={102} height={33} alt="logo" />
             </motion.div>
 
             {/* Hamburger Menu Button */}

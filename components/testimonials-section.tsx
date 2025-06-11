@@ -6,14 +6,13 @@ import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import { useWindowSize } from "@/hooks/use-window-size"
+import {arrayFromNumber} from "embla-carousel/components/utils";
 
 export default function TestimonialsSection() {
   const testimonials = [
-    { id: 1, image: "/placeholder.svg?height=300&width=220", alt: "Благодарность 1" },
-    { id: 2, image: "/placeholder.svg?height=300&width=220", alt: "Благодарность 2" },
-    { id: 3, image: "/placeholder.svg?height=300&width=220", alt: "Благодарность 3" },
-    { id: 4, image: "/placeholder.svg?height=300&width=220", alt: "Благодарность 4" },
-    { id: 5, image: "/placeholder.svg?height=300&width=220", alt: "Благодарность 5" },
+    { id: 1, image: "/award-1.png", alt: "Благодарность 1" },
+    { id: 2, image: "/award-2.png", alt: "Благодарность 2" },
+    { id: 3, image: "/award-3.png", alt: "Благодарность 3" },
   ]
 
   const { width } = useWindowSize()
@@ -24,6 +23,7 @@ export default function TestimonialsSection() {
   const totalPages = Math.ceil(testimonials.length / slidesToShow)
 
   const paginate = (newDirection: number) => {
+    console.log(page)
     setDirection(newDirection)
     setPage((prevPage) => (prevPage + newDirection + totalPages) % totalPages)
   }
@@ -102,7 +102,7 @@ export default function TestimonialsSection() {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
           viewport={{ once: true }}
-          className="flex justify-center items-center space-x-3 mt-8"
+          className="flex justify-between items-center space-x-3 mt-8"
         >
           <Button
             variant="outline"
@@ -113,7 +113,17 @@ export default function TestimonialsSection() {
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          {/* <span className="text-sm text-gray-600">{page + 1} / {totalPages}</span> */}
+          <div className="flex justify-center gap-1">
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <div
+                key={index}
+                className={`w-[10px] h-[10px] rounded-full ${
+                  page === index ? "bg-[#666]" : "bg-[#d9d9d9]"
+                }`}
+              />
+            ))}
+          </div>
+
           <Button
             variant="outline"
             size="icon"
