@@ -72,8 +72,9 @@ export default function HeroSection() {
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="relative order-3">
             <Link href='https://lms.anoacademy.ru'
+              target="_blank"
               size="lg"
-              className="w-full lg:w-auto bg-[#1A1A1A] hover:bg-[#1A1A1b]text-white h-12 lg:h-[51px] rounded-lg "
+              className="text-white px-4 xy-2 w-full lg:w-auto bg-[#1A1A1A] hover:bg-[#1A1A1b]text-white h-12 lg:h-[51px] rounded-lg "
             >
               Перейти в личный кабинет
             </Link>

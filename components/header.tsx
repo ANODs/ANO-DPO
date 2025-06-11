@@ -67,7 +67,7 @@ export default function Header() {
               transition={{ delay: 0.5 }}
               className="flex justify-end"
             >
-              <Button className="bg-black text-white hover:bg-gray-800">Перейти в личный кабинет</Button>
+              <Link href='https://lms.anoacademy.ru' target="_blank" className="bg-black rounded-xl text-white hover:bg-gray-800">Перейти в личный кабинет</Link>
             </motion.div>
           </div>
 
@@ -124,7 +124,7 @@ export default function Header() {
 
               {/* Login Button */}
               <div className="px-4 mb-4">
-                <Link href='https://lms.anoacademy.ru' className="w-full h-12 bg-black text-white hover:bg-gray-800 rounded-lg">
+                <Link href='https://lms.anoacademy.ru' target="_blank" className="w-full h-12 bg-black text-white hover:bg-gray-800 rounded-lg">
                   Перейти в личный кабинет
                 </Link>
               </div>
