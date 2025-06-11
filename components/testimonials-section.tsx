@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import { useWindowSize } from "@/hooks/use-window-size"
-import {arrayFromNumber} from "embla-carousel/components/utils";
 
 export default function TestimonialsSection() {
   const testimonials = [
