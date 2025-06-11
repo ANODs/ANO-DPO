@@ -77,9 +77,9 @@ export default function Footer() {
             viewport={{ once: true }}
             className="flex justify-start lg:justify-end"
           >
-            <Button className="w-full lg:w-auto h-11 lg:h-[51px] bg-white hover:bg-gray-100 text-black">
+            <Link href='https://lms.anoacademy.ru' className="w-full lg:w-auto h-11 lg:h-[51px] bg-white hover:bg-gray-100 text-black">
               Перейти в личный кабинет
-            </Button>
+            </Link>
           </motion.div>
         </div>
 

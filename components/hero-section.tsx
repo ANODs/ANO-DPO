@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
-
+import Link from "next/link"
 export default function HeroSection() {
   return (
     <section className="relative overflow-hidden py-8 lg:py-24">
@@ -71,12 +71,12 @@ export default function HeroSection() {
               />
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="relative order-3">
-            <Button
+            <Link href='https://lms.anoacademy.ru'
               size="lg"
               className="w-full lg:w-auto bg-[#1A1A1A] hover:bg-[#1A1A1b]text-white h-12 lg:h-[51px] rounded-lg "
             >
               Перейти в личный кабинет
-            </Button>
+            </Link>
           </motion.div>
         </div>
       </div>

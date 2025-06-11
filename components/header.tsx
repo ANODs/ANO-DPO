@@ -124,9 +124,9 @@ export default function Header() {
 
               {/* Login Button */}
               <div className="px-4 mb-4">
-                <Button className="w-full h-12 bg-black text-white hover:bg-gray-800 rounded-lg">
+                <Link href='https://lms.anoacademy.ru' className="w-full h-12 bg-black text-white hover:bg-gray-800 rounded-lg">
                   Перейти в личный кабинет
-                </Button>
+                </Link>
               </div>
 
               {/* Menu Items */}
