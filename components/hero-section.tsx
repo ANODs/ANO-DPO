@@ -74,7 +74,7 @@ export default function HeroSection() {
             <Link href='https://lms.anoacademy.ru'
               target="_blank"
               size="lg"
-              className="text-white px-4 xy-2 w-full lg:w-auto bg-[#1A1A1A] hover:bg-[#1A1A1b]text-white h-12 lg:h-[51px] rounded-lg "
+              className="text-white px-5 py-4 text-[16px] w-full lg:w-auto bg-[#1A1A1A] hover:bg-[#1A1A1b]text-white h-12 lg:h-[51px] rounded-lg "
             >
               Перейти в личный кабинет
             </Link>
