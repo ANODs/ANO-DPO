@@ -60,20 +60,20 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative order-2"
+            className="relative order-2 justify-self-center"
           >
               <Image
                 src="/mobile-hero.png"
                 alt="Выпускники в мантиях"
                 width={280}
                 height={365}
-                className="object-cover"
+                className="object-cover xl:w-[520px] xl:h-[560px]"
               />
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="relative order-3">
             <Button
               size="lg"
-              className="w-full lg:w-auto bg-[#1A1A1A] hover:bg-[#1A1A1b]text-white h-12 lg:h-auto rounded-lg "
+              className="w-full lg:w-auto bg-[#1A1A1A] hover:bg-[#1A1A1b]text-white h-12 lg:h-[51px] rounded-lg "
             >
               Перейти в личный кабинет
             </Button>

@@ -22,7 +22,6 @@ export default function HomePage() {
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-white"
     >
-      <Header />
       <main>
         <HeroSection />
         <TestSection />

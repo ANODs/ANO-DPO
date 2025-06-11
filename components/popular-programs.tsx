@@ -147,7 +147,7 @@ export default function PopularPrograms() {
             className="lg:col-span-1 space-y-4"
           >
             <h2 className="text-2xl lg:text-3xl font-bold text-brand-text-dark">Топ 10 популярных программ</h2>
-            <Link href="/программы" className="text-sm text-brand-text-light hover:text-blue-600 transition-colors">
+            <Link href="/программы" className="block lg:hidden text-sm text-brand-text-light hover:text-blue-600 transition-colors">
               Посмотреть еще
             </Link>
 
@@ -159,7 +159,7 @@ export default function PopularPrograms() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
             viewport={{ once: true }}
-            className="lg:col-span-2 relative overflow-hidden h-[440px] md:h-[420px]" // Adjusted height
+            className="lg:col-span-2 lg:row-span-2 relative h-[440px] md:h-[420px]" // Adjusted height
             drag="x"
             dragConstraints={{ left: 0, right: 0 }} // Keep content from being dragged out of page container
             onDragEnd={(event, info) => {
@@ -227,7 +227,10 @@ export default function PopularPrograms() {
               </motion.div>
             </AnimatePresence>
           </motion.div>
-          <div className="flex justify-between items-center space-x-3 text-sm">
+          <div className="flex justify-between items-center self-end  text-sm">
+            <Link  href="/программы" className="hidden lg:block text-sm text-brand-text-light hover:text-blue-600 transition-colors">
+              Посмотреть еще
+            </Link>
             <button
               onClick={() => paginate(-1)}
               className="p-1 hover:text-brand-text-dark transition-colors"

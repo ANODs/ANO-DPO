@@ -40,17 +40,18 @@ export default function Header() {
 
             {/* Navigation Menu */}
             <nav className="flex justify-center items-center">
-              <ul className="flex justify-center items-center space-x-8">
+              <ul className="flex justify-center items-center gap-8">
                 {menuItems.map((item, index) => (
                   <motion.li
                     key={item}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 + 0.3 }}
+                    className="min-w-[50px]"
                   >
                     <Link
                       href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+                      className="text-gray-700 hover:text-gray-800 transition-colors font-medium text-sm"
                     >
                       {item}
                     </Link>

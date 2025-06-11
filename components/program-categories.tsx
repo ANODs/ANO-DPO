@@ -50,7 +50,7 @@ export default function ProgramCategories() {
       viewport={{ once: true }}
       className="py-8 lg:py-16 bg-gray-50"
     >
-      <div className="container mx-auto px-4">
+      <div className="container px-4">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

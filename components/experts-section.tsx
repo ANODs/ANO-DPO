@@ -13,44 +13,65 @@ export default function ExpertsSection() {
       id: 1,
       name: "Кириллов Дмитрий Сергеевич",
       specialization: "Эксперт в области нейросетевого искусства",
-      image: "/placeholder.svg?height=120&width=120",
+      image: "/kirillov.png",
     },
     {
       id: 2,
       name: "Тамбовцев Денис Игоревич",
       specialization: "Эксперт в области разработки виртуальной и дополненной реальности",
-      image: "/placeholder.svg?height=120&width=120",
+      image: "/tambovcev.png",
     },
     {
       id: 3,
       name: "Валиуллин Азат Миннуллович",
       specialization: "Эксперт в области беспилотных летательных аппаратов",
-      image: "/placeholder.svg?height=120&width=120",
+      image: "/valliulin.png",
     },
     {
       id: 4,
       name: "Зиннатуллин Айзат Имбелович",
       specialization: "Эксперт в области промышленной робототехники",
-      image: "/placeholder.svg?height=120&width=120",
+      image: "/zinnatullin.png",
     },
     {
       id: 5,
       name: "Ларин Александр Викторович",
       specialization: "Эксперт по сварочным технологиям",
-      image: "/placeholder.svg?height=120&width=120",
+      image: "/larin.png",
     },
     {
       id: 6,
-      name: "Смирнова Ольга Игоревна",
-      specialization: "Искусственный интеллект",
-      image: "/placeholder.svg?height=120&width=120",
+      name: "Добротворская Алла Сергеевна",
+      specialization: "Эксперт в области жестового искусства",
+      image: "/dorbrova.png",
     },
     {
       id: 7,
-      name: "Васильев Дмитрий Сергеевич",
-      specialization: "Веб-разработка",
-      image: "/placeholder.svg?height=120&width=120",
+      name: "Михайлов Алексей Николаевич",
+      specialization: "Эксперт в области беспилотного пилотирования",
+      image: "/mihailov.png",
     },
+    {
+      id: 8,
+      name: "Хайруллин Рудольф Рафисович",
+      specialization: "Эксперт в области электроники",
+      image: "/hiroller.png",
+    },
+    {
+      id: 9,
+      name: "Чернышов Александр Иванович",
+      specialization: "Эксперт в области Наземных роботизированных комплексов",
+      image: "/chernishov.png",
+    },
+    {
+      id: 10,
+      name: "Москвин Олег Александрович",
+      specialization: "Эксперт по компетенции Администрирование баз данных",
+      image: "/moskvin.png",
+    },
+
+
+
   ]
 
   const { width } = useWindowSize()

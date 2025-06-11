@@ -9,14 +9,11 @@ import { useWindowSize } from "@/hooks/use-window-size"
 
 export default function PartnersSection() {
   const partners = [
-    { id: 1, name: "КХК", logo: "/placeholder.svg?height=60&width=100" },
-    { id: 2, name: "ФАС России", logo: "/placeholder.svg?height=60&width=100" },
-    { id: 3, name: "Аванти", logo: "/placeholder.svg?height=60&width=100" },
-    { id: 4, name: "Абилимпикс", logo: "/placeholder.svg?height=60&width=100" },
-    { id: 5, name: "Центр Технического Творчества", logo: "/placeholder.svg?height=60&width=100" },
-    { id: 6, name: "Партнер 6", logo: "/placeholder.svg?height=60&width=100" },
-    { id: 7, name: "Партнер 7", logo: "/placeholder.svg?height=60&width=100" },
-    { id: 8, name: "Партнер 8", logo: "/placeholder.svg?height=60&width=100" },
+    { id: 1, name: "КХК", logo: "/knn.png" },
+    { id: 2, name: "ФАС России", logo: "/fas.png" },
+    { id: 3, name: "Аванти", logo: "/avanti.png" },
+    { id: 4, name: "Абилимпикс", logo: "/abilimp.png" },
+    { id: 5, name: "Центр Технического Творчества", logo: "/technoart.png" },
   ]
 
   const { width } = useWindowSize()
@@ -62,7 +59,7 @@ export default function PartnersSection() {
         </motion.h2>
 
         <motion.div
-          className="relative overflow-hidden h-[100px] md:h-[120px]" // Adjusted height for logos
+          className="relative h-[100px] md:h-[140px]" // Adjusted height for logos
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           onDragEnd={(event, info) => {
@@ -85,13 +82,13 @@ export default function PartnersSection() {
               {currentPartners.map((partner) => (
                 <div
                   key={partner.id}
-                  className="relative h-16 md:h-20 w-full bg-white p-2 rounded-md border border-gray-200 shadow-sm flex items-center justify-center"
+                  className="relative h-[104px] md:h-[140px] w-full bg-white p-2 rounded-md border border-gray-200 shadow-sm flex items-center justify-center"
                 >
                   <Image
                     src={partner.logo || "/placeholder.svg"}
                     alt={partner.name}
                     fill
-                    className="object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                    className="object-contain "
                     style={{ pointerEvents: "none" }}
                   />
                 </div>
