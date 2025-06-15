@@ -6,7 +6,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export default function FAQSection() {
   const faqs = [
     {
-      question: "Какие documents необходимы для поступления на programs?",
+      question: "Какие документы необходимы для поступления на программы?",
       answer:
         "Для поступления необходимы: копия паспорта, копия диплома о высшем или среднем профессиональном образовании, заявление на обучение.",
     },
