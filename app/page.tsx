@@ -34,7 +34,6 @@ export default function HomePage() {
         <ContactSection />
         <FAQSection />
       </main>
-      <Footer />
     </motion.div>
   )
 }

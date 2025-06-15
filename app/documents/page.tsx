@@ -218,7 +218,6 @@ export default function DocumentsPage() {
         </motion.div>
       </main>
 
-      <Footer />
     </div>
   )
 }

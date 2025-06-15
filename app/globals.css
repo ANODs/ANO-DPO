@@ -2,7 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 @layer utilities {
+  * {
+    scroll-behavior: smooth;
+  }
+
   .text-balance {
     text-wrap: balance;
   }
@@ -109,3 +115,4 @@
     @apply bg-background text-foreground;
   }
 }
+

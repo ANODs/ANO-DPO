@@ -16,6 +16,7 @@ export default function Footer() {
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
       className="bg-[#1A1A1A] text-white py-8 lg:py-12"
+      id="footer"
     >
       <div className="container px-4">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8 mb-6 lg:mb-8">

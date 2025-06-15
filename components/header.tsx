@@ -12,12 +12,12 @@ export default function Header() {
   const [isProgramsExpanded, setIsProgramsExpanded] = useState(false)
 
   const menuItems = [
-    { name: "Программы", href: "/programs" },
-    { name: "О нас", href: "/about" },
-    { name: "Партнёры", href: "/partners" },
-    { name: "Новости", href: "/news" },
+    { name: "Программы", href: "/#programs" },
+    { name: "Новости", href: "/#news" },
+    { name: "О нас", href: "/#about" },
+    { name: "Партнёры", href: "/#partners" },
     { name: "Документы", href: "/documents" },
-    { name: "Контакты", href: "/contacts" }
+    { name: "Контакты", href: "#footer" }
   ]
 
   const programSubItems = [
@@ -47,7 +47,9 @@ export default function Header() {
           <div className="hidden lg:grid lg:grid-cols-3 gap-4 items-center">
             {/* Logo */}
             <motion.div whileHover={{ scale: 1.05 }} className="flex items-center space-x-3">
+             <Link href="/">
               <Image src="/logo.png" width={200} height={65} alt="logo" />
+             </Link>
             </motion.div>
 
             {/* Navigation Menu */}

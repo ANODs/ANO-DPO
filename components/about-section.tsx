@@ -23,6 +23,7 @@ export default function AboutSection() {
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
       className="py-8 lg:py-16 bg-white"
+      id="about"
     >
       <div className="container mx-auto px-4">
         <motion.h2

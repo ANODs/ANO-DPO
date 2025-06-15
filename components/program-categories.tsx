@@ -49,6 +49,7 @@ export default function ProgramCategories() {
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
       className="py-8 lg:py-16 bg-white"
+      id="news"
     >
       <div className="container px-4">
         <motion.h2

@@ -137,6 +137,7 @@ export default function PopularPrograms() {
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
       className="py-8 lg:py-16 bg-white"
+      id="programs"
     >
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
