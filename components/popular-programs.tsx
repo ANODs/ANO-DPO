@@ -97,6 +97,8 @@ export default function PopularPrograms() {
   const [page, setPage] = useState(0)
   const [direction, setDirection] = useState(0)
 
+  // Prevent hydration mismatch: don't render until width is known
+  if (width === 0) return null
   const slidesToShow = width < 768 ? 1 : width < 1024 ? 2 : 3
   const totalPages = Math.ceil(programs.length / slidesToShow)
 

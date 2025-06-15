@@ -11,9 +11,21 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isProgramsExpanded, setIsProgramsExpanded] = useState(false)
 
-  const menuItems = ["Программы", "О нас", "Партнёры", "Новости", "Документы", "Контакты"]
+  const menuItems = [
+    { name: "Программы", href: "/programs" },
+    { name: "О нас", href: "/about" },
+    { name: "Партнёры", href: "/partners" },
+    { name: "Новости", href: "/news" },
+    { name: "Документы", href: "/documents" },
+    { name: "Контакты", href: "/contacts" }
+  ]
 
-  const programSubItems = ["Дополнительное образование", "Повышение квалификации", "Мастер-классы", "Экскурсии"]
+  const programSubItems = [
+    { name: "Дополнительное образование", href: "/additional-education" },
+    { name: "Повышение квалификации", href: "/advanced-training" },
+    { name: "Мастер-классы", href: "/master-classes" },
+    { name: "Экскурсии", href: "/excursions" }
+  ]
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -43,17 +55,17 @@ export default function Header() {
               <ul className="flex justify-center items-center gap-8">
                 {menuItems.map((item, index) => (
                   <motion.li
-                    key={item}
+                    key={item.name}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 + 0.3 }}
                     className="min-w-[50px]"
                   >
                     <Link
-                      href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
+                      href={item.href}
                       className="text-gray-700 hover:text-gray-800 transition-colors font-medium text-sm"
                     >
-                      {item}
+                      {item.name}
                     </Link>
                   </motion.li>
                 ))}
@@ -133,8 +145,8 @@ export default function Header() {
               <nav className="flex-1">
                 <ul className="space-y-0">
                   {menuItems.map((item, index) => (
-                    <li key={item}>
-                      {item === "Программы" ? (
+                    <li key={item.name}>
+                      {item.name === "Программы" ? (
                         <div>
                           <motion.button
                             whileTap={{ scale: 0.98 }}
@@ -144,7 +156,7 @@ export default function Header() {
                             <span
                               className={`font-medium ${isProgramsExpanded ? "text-purple-600 underline" : "text-gray-900"}`}
                             >
-                              {item}
+                              {item.name}
                             </span>
                             {isProgramsExpanded ? (
                               <Minus className="h-6 w-6 text-gray-500" />
@@ -165,12 +177,12 @@ export default function Header() {
                                 <div className="py-2">
                                   {programSubItems.map((subItem) => (
                                     <Link
-                                      key={subItem}
-                                      href={`/${subItem.toLowerCase().replace(/\s+/g, "-")}`}
+                                      key={subItem.name}
+                                      href={subItem.href}
                                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors border-b border-gray-200 last:border-b-0"
                                       onClick={toggleMenu}
                                     >
-                                      {subItem}
+                                      {subItem.name}
                                     </Link>
                                   ))}
                                 </div>
@@ -180,11 +192,11 @@ export default function Header() {
                         </div>
                       ) : (
                         <Link
-                          href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
+                          href={item.href}
                           className="block px-4 py-3 text-gray-900 font-medium border-b border-gray-200 hover:bg-white transition-colors"
                           onClick={toggleMenu}
                         >
-                          {item}
+                          {item.name}
                         </Link>
                       )}
                     </li>
