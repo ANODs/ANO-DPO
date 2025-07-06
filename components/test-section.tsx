@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import Link from "next/link";
 
 export default function TestSection() {
   return (
@@ -37,9 +38,9 @@ export default function TestSection() {
             viewport={{ once: true }}
             className="lg:col-span-3"
           >
-            <Button className="w-full h-11 lg:h-auto bg-[#1a1a1a] hover:bg-[#1a1a1b] text-white rounded-[10px]">
+            <Link href="/test" className="p-4 w-full h-11 lg:h-auto bg-[#1a1a1a] hover:bg-[#1a1a1b] text-white rounded-[10px]">
               Пройти тест
-            </Button>
+            </Link>
           </motion.div>
         </div>
       </div>
