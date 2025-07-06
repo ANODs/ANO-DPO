@@ -1,0 +1,296 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
+import ProgramCard from "@/components/program-card"
+import ProgramCardSkeleton from "@/components/program-card-skeleton"
+
+interface Program {
+  id: number
+  title: string
+  description: string
+  duration: string
+  format: string
+  price?: string
+  image: string
+  category: string
+}
+
+const mockPrograms: Program[] = [
+  {
+    id: 1,
+    title: "Название программы",
+    description: "Краткое описание. Краткое описание. Краткое описание.",
+    duration: "16 ч.",
+    format: "Дистанционно",
+    image: "/programms/robototech.png",
+    category: "additional"
+  },
+  {
+    id: 2,
+    title: "Название программы",
+    description: "Краткое описание. Краткое описание. Краткое описание.",
+    duration: "16 ч.",
+    format: "Дистанционно",
+    price: "150 000 руб.",
+    image: "/programms/robototech.png",
+    category: "additional"
+  },
+  {
+    id: 3,
+    title: "Название программы",
+    description: "Краткое описание. Краткое описание. Краткое описание.",
+    duration: "36 часов",
+    format: "Дистанционно",
+    image: "/programms/robototech.png",
+    category: "qualification"
+  },
+  {
+    id: 4,
+    title: "Название программы",
+    description: "Краткое описание. Краткое описание. Краткое описание.",
+    duration: "16 ч.",
+    format: "Дистанционно",
+    image: "/programms/robototech.png",
+    category: "masterclass"
+  },
+  {
+    id: 5,
+    title: "Название программы",
+    description: "Краткое описание. Краткое описание. Краткое описание.",
+    duration: "16 ч.",
+    format: "Дистанционно",
+    price: "150 000 руб.",
+    image: "/programms/robototech.png",
+    category: "excursion"
+  },
+  {
+    id: 6,
+    title: "Название программы",
+    description: "Краткое описание. Краткое описание. Краткое описание.",
+    duration: "16 ч.",
+    format: "Дистанционно",
+    image: "/programms/robototech.png",
+    category: "additional"
+  }
+]
+
+const categories = [
+  { id: "additional", label: "Дополнительное образование" },
+  { id: "qualification", label: "Повышение квалификации" },
+  { id: "masterclass", label: "Мастер классы" },
+  { id: "excursion", label: "Экскурсии" }
+]
+
+const filterOptions = [
+  { id: "16h", label: "16 часов" },
+  { id: "36h", label: "36 часов" }
+]
+
+export default function ProgramsList() {
+  const [activeCategory, setActiveCategory] = useState("additional")
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([])
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false)
+  const [programs, setPrograms] = useState<Program[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  // Загрузка программ с API
+  const fetchPrograms = async () => {
+    setIsLoading(true)
+    setError(null)
+    
+    try {
+      const params = new URLSearchParams({
+        category: activeCategory,
+        ...(selectedFilters.length > 0 && { duration: selectedFilters.join(',') })
+      })
+      
+      const response = await fetch(`/api/programs?${params}`)
+      const data = await response.json()
+      
+      if (data.programs && data.programs.length > 0) {
+        setPrograms(data.programs)
+      } else {
+        // Если программы не найдены, используем мок данные
+        setPrograms(mockPrograms.filter(program => program.category === activeCategory))
+      }
+    } catch (err) {
+      setError('Ошибка загрузки программ')
+      // В случае ошибки также используем мок данные
+      setPrograms(mockPrograms.filter(program => program.category === activeCategory))
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchPrograms()
+  }, [activeCategory, selectedFilters])
+
+  const toggleFilter = (filterId: string) => {
+    setSelectedFilters(prev => 
+      prev.includes(filterId) 
+        ? prev.filter(id => id !== filterId)
+        : [...prev, filterId]
+    )
+  }
+
+  const handleCategoryChange = (categoryId: string) => {
+    setActiveCategory(categoryId)
+    setSelectedFilters([]) // Сбрасываем фильтры при смене категории
+  }
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.h1 
+            className="text-4xl font-bold text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Программы обучения
+          </motion.h1>
+          
+          {/* Category Tabs */}
+          <motion.div 
+            className="flex flex-wrap justify-center gap-4 mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => handleCategoryChange(category.id)}
+                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                  activeCategory === category.id
+                    ? "bg-black text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                {category.label}
+              </button>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <section className="pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Desktop Sidebar */}
+            <div className="hidden lg:block">
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h3 className="text-lg font-bold mb-6">Поиск по программам</h3>
+                
+                <div className="space-y-4">
+                  <h4 className="font-medium text-gray-900">Выбраны программы</h4>
+                  
+                  {filterOptions.map((option) => (
+                    <label key={option.id} className="flex items-center space-x-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={selectedFilters.includes(option.id)}
+                        onChange={() => toggleFilter(option.id)}
+                        className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black"
+                      />
+                      <span className="text-gray-700">{option.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile Filter Button */}
+            <div className="lg:hidden mb-6">
+              <button
+                onClick={() => setIsMobileFilterOpen(!isMobileFilterOpen)}
+                className="w-full bg-gray-100 text-gray-700 px-4 py-3 rounded-lg font-medium"
+              >
+                Поиск по программам
+              </button>
+              
+              {isMobileFilterOpen && (
+                <motion.div 
+                  className="mt-4 bg-gray-50 rounded-lg p-4"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                >
+                  <h4 className="font-medium text-gray-900 mb-4">Выбраны программы</h4>
+                  
+                  {filterOptions.map((option) => (
+                    <label key={option.id} className="flex items-center space-x-3 cursor-pointer mb-3">
+                      <input
+                        type="checkbox"
+                        checked={selectedFilters.includes(option.id)}
+                        onChange={() => toggleFilter(option.id)}
+                        className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black"
+                      />
+                      <span className="text-gray-700">{option.label}</span>
+                    </label>
+                  ))}
+                </motion.div>
+              )}
+            </div>
+
+            {/* Programs Grid */}
+            <div className="lg:col-span-3">
+              <motion.div 
+                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                {isLoading ? (
+                  // Показываем скелетоны во время загрузки
+                  Array.from({ length: 6 }).map((_, index) => (
+                    <ProgramCardSkeleton key={index} index={index} />
+                  ))
+                ) : (
+                  // Показываем программы
+                  programs.map((program, index) => (
+                    <ProgramCard
+                      key={program.id}
+                      id={program.id}
+                      title={program.title}
+                      description={program.description}
+                      duration={program.duration}
+                      format={program.format}
+                      price={program.price}
+                      image={program.image}
+                      index={index}
+                    />
+                  ))
+                )}
+              </motion.div>
+              
+              {!isLoading && programs.length === 0 && (
+                <div className="text-center py-12">
+                  <p className="text-gray-500 text-lg">Программы не найдены</p>
+                </div>
+              )}
+              
+              {error && (
+                <div className="text-center py-12">
+                  <p className="text-red-500 text-lg">{error}</p>
+                  <button 
+                    onClick={fetchPrograms}
+                    className="mt-4 px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
+                  >
+                    Попробовать снова
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
