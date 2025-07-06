@@ -7,25 +7,26 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import { useWindowSize } from "@/hooks/use-window-size"
 
-export default function PartnersSection() {
-  const partners = [
-    { id: 1, name: "КХК", logo: "/knn.png" },
-    { id: 2, name: "ФАС России", logo: "/fas.png" },
-    { id: 3, name: "Аванти", logo: "/avanti.png" },
-    { id: 4, name: "Абилимпикс", logo: "/abilimp.png" },
-    { id: 5, name: "Центр Технического Творчества", logo: "/technoart.png" },
-    { id: 6, name: "Avanti group", logo: "/AvantiGroup.png" },
-    { id: 7, name: "ВОИР", logo: "/VOIR.png" },
-    { id: 8, name: "АНО Мир", logo: "/anoMir.png" },
-    { id: 9, name: "Абрис група", logo: "/abris.png" },
-    { id: 10, name: "Центр Инноваций", logo: "/ino.png" },
-    { id: 11, name: "Modum lab", logo: "/modum lab.png" },
-    { id: 12, name: "Новые технологии", logo: "/newTech.png" },
-    { id: 13, name: "Runa", logo: "/runa.png" },
-    { id: 14, name: "kedr", logo: "/kedr.png" },
-    { id: 15, name: "Vector groun", logo: "/vectorGroup.png" },
+const partners = [
+  { id: 1, name: "КХК", logo: "/knn.png" },
+  { id: 2, name: "ФАС России", logo: "/fas.png" },
+  { id: 3, name: "Аванти", logo: "/avanti.png" },
+  { id: 4, name: "Абилимпикс", logo: "/abilimp.png" },
+  { id: 5, name: "Центр Технического Творчества", logo: "/technoart.png" },
+  { id: 6, name: "Avanti group", logo: "/AvantiGroup.png" },
+  { id: 7, name: "ВОИР", logo: "/VOIR.png" },
+  { id: 8, name: "АНО Мир", logo: "/anoMir.png" },
+  { id: 9, name: "Абрис група", logo: "/abris.png" },
+  { id: 10, name: "Центр Инноваций", logo: "/ino.png" },
+  { id: 11, name: "Modum lab", logo: "/modum lab.png" },
+  { id: 12, name: "Новые технологии", logo: "/newTech.png" },
+  { id: 13, name: "Runa", logo: "/runa.png" },
+  { id: 14, name: "kedr", logo: "/kedr.png" },
+  { id: 15, name: "Vector groun", logo: "/vectorGroup.png" },
+]
 
-  ]
+export default function PartnersSection() {
+
 
   const { width } = useWindowSize()
   const [page, setPage] = useState(0)

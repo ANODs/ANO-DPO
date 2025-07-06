@@ -13,9 +13,9 @@ export default function Header() {
 
   const menuItems = [
     { name: "Программы", href: "/#programs" },
-    { name: "Новости", href: "/#news" },
-    { name: "О нас", href: "/#about" },
-    { name: "Партнёры", href: "/#partners" },
+    { name: "Новости", href: "/news" },
+    { name: "О нас", href: "/about" },
+    { name: "Партнёры", href: "/partners" },
     { name: "Документы", href: "/documents" },
     { name: "Контакты", href: "#footer" }
   ]
