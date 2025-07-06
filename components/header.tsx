@@ -12,7 +12,7 @@ export default function Header() {
   const [isProgramsExpanded, setIsProgramsExpanded] = useState(false)
 
   const menuItems = [
-    { name: "Программы", href: "/#programs" },
+    { name: "Программы", href: "/programs" },
     { name: "Новости", href: "/news" },
     { name: "О нас", href: "/about" },
     { name: "Партнёры", href: "/partners" },
