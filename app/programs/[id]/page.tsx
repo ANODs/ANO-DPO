@@ -1,43 +1,78 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ChevronRight, ChevronLeft, Star, Clock } from 'lucide-react'
 import { motion, AnimatePresence, PanInfo } from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { useParams } from 'next/navigation'
 
 export default function ProgramPage() {
+  const params = useParams()
+  const programId = params.id as string
   const [reviewsCurrentIndex, setReviewsCurrentIndex] = useState(0)
   const [programsCurrentIndex, setProgramsCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
 
-  // Mock data for the program
-  const program = {
-    id: 1,
-    title: "Сварочные технологии",
-    category: "Дополнительное профессиональное образование",
-    description: "Образовательная программа по специальности «Сварочные технологии» ориентирована на подготовку специалистов в области современных сварочных технологий. Программа включает изучение различных методов сварки, контроля качества сварных соединений и современного сварочного оборудования.",
-    duration: "144 ч / 18 дн",
-    format: "Очно",
-    level: "Профессиональная переподготовка",
-    price: "25 000 ₽",
-    image: "/placeholder.jpg",
-    goals: [
-      "Освоение современных сварочных технологий и методов контроля качества сварных соединений с учетом требований промышленной безопасности, экологии, экономики.",
-      "Изучение принципов работы современного сварочного оборудования, технологии сварки различных материалов.",
-      "Приобретение навыков по планированию сварочных работ и обеспечению качества сварных соединений."
-    ],
-    disciplines: [
-      "Основы сварочного производства",
-      "Материаловедение и технология конструкционных материалов",
-      "Оборудование для сварки",
-      "Технология сварочных работ",
-      "Контроль качества сварных соединений",
-      "Охрана труда при сварочных работах",
-      "Экономика сварочного производства"
-    ]
+  // Programs data
+  const programs = {
+    "1": {
+      id: 1,
+      title: "Промышленная робототехника (ДПО)",
+      category: "Дополнительное профессиональное образование",
+      description: "Образовательная программа по промышленной робототехнике направлена на подготовку специалистов, обладающих глубокими знаниями и практическими навыками в области проектирования, программирования, эксплуатации и обслуживания промышленных роботов и автоматизированных производственных линий.",
+      duration: "72 ч / 9 дн",
+      format: "Очно/Дистанционно",
+      level: "Профессиональная переподготовка",
+      price: "По запросу",
+      image: "/programms/robototech.png",
+      goals: [
+        "Освоение принципов функционирования различных типов промышленных роботов, датчиков и исполнительных механизмов.",
+        "Изучение методов автоматизации технологических процессов, включая разработку алгоритмов управления оборудованием.",
+        "Овладение языками программирования и специализированными средами разработки для управления промышленными роботами.",
+        "Получение навыков диагностики неисправностей, ремонта и технического обслуживания роботизированных комплексов."
+      ],
+      disciplines: [
+        "Основы робототехники",
+        "Автоматизация производства",
+        "Программирование роботов",
+        "Диагностика и техническое обслуживание",
+        "Безопасность труда при работе с промышленными роботами",
+        "Системы автоматизации",
+        "Проектирование роботизированных комплексов"
+      ]
+    },
+    "2": {
+      id: 2,
+      title: "Архитектор будущего: Нейросетевое искусство (ДПО)",
+      category: "Дополнительное профессиональное образование",
+      description: "Инновационная образовательная программа, объединяющая искусство и технологии искусственного интеллекта. Участники изучают создание цифрового искусства с помощью нейронных сетей, генеративных алгоритмов и современных AI-инструментов, развивая навыки в области компьютерной графики, дизайна и программирования.",
+      duration: "108 ч / 14 дн",
+      format: "Очно/Дистанционно",
+      level: "Профессиональная переподготовка",
+      price: "По запросу",
+      image: "/placeholder.jpg",
+      goals: [
+        "Освоение принципов работы генеративных нейронных сетей и их применения в создании визуального искусства.",
+        "Изучение современных AI-инструментов для создания изображений, анимации и интерактивных инсталляций.",
+        "Развитие навыков программирования на Python для работы с библиотеками машинного обучения в области компьютерного зрения.",
+        "Формирование понимания этических аспектов использования ИИ в творческой деятельности и авторских правах."
+      ],
+      disciplines: [
+        "Основы машинного обучения и нейронных сетей",
+        "Генеративные модели (GAN, VAE, Diffusion)",
+        "Программирование на Python для AI-арта",
+        "Работа с AI-инструментами (Midjourney, DALL-E, Stable Diffusion)",
+        "Компьютерная графика и цифровое искусство",
+        "Этика ИИ в творчестве",
+        "Создание интерактивных инсталляций"
+      ]
+    }
   }
+
+  const program = programs[programId as keyof typeof programs] || programs["1"]
 
   // Mock reviews data
   const reviews = [
@@ -99,82 +134,34 @@ export default function ProgramPage() {
     }
   ]
 
-  // Mock other programs data
-  const otherPrograms = [
-    {
-      id: 2,
-      title: "Робототехника и автоматизация",
-      description: "Изучение современных робототехнических систем и методов автоматизации производства",
-      duration: "72 ч",
-      format: "Очно",
-      price: "15 000 ₽",
-      image: "/placeholder.jpg",
-      badge: "Популярное"
-    },
-    {
-      id: 3,
-      title: "Цифровые технологии в производстве",
-      description: "Освоение цифровых инструментов для оптимизации производственных процессов",
-      duration: "108 ч",
-      format: "Дистанционно",
-      price: "20 000 ₽",
-      image: "/placeholder.jpg"
-    },
-    {
-      id: 4,
-      title: "Контроль качества продукции",
-      description: "Методы и средства контроля качества в современном производстве",
-      duration: "144 ч",
-      format: "Очно",
-      price: "25 000 ₽",
-      image: "/placeholder.jpg"
-    },
-    {
-      id: 5,
-      title: "Промышленная безопасность",
-      description: "Обеспечение безопасности на промышленных предприятиях",
-      duration: "72 ч",
-      format: "Очно",
-      price: "18 000 ₽",
-      image: "/placeholder.jpg"
-    },
-    {
-      id: 6,
-      title: "Энергоэффективность",
-      description: "Методы повышения энергоэффективности промышленных процессов",
-      duration: "96 ч",
-      format: "Смешанный",
-      price: "22 000 ₽",
-      image: "/placeholder.jpg"
-    },
-    {
-      id: 7,
-      title: "Экологический менеджмент",
-      description: "Управление экологическими аспектами производственной деятельности",
-      duration: "120 ч",
-      format: "Дистанционно",
-      price: "19 000 ₽",
-      image: "/placeholder.jpg"
-    },
-    {
-      id: 8,
-      title: "Инновационные материалы",
-      description: "Изучение свойств и применения современных конструкционных материалов",
-      duration: "84 ч",
-      format: "Очно",
-      price: "16 000 ₽",
-      image: "/placeholder.jpg"
-    },
-    {
-      id: 9,
-      title: "Метрология и стандартизация",
-      description: "Основы метрологии, стандартизации и сертификации в промышленности",
-      duration: "108 ч",
-      format: "Смешанный",
-      price: "21 000 ₽",
-      image: "/placeholder.jpg"
+  // State for other programs
+  const [otherPrograms, setOtherPrograms] = useState<any[]>([])
+  const [isLoadingPrograms, setIsLoadingPrograms] = useState(true)
+
+  // Load other programs from API
+  useEffect(() => {
+    const fetchOtherPrograms = async () => {
+      setIsLoadingPrograms(true)
+      try {
+        const response = await fetch('/api/programs?category=additional')
+        const data = await response.json()
+        
+        if (data.programs && data.programs.length > 0) {
+          // Filter out current program
+          const filteredPrograms = data.programs.filter((p: any) => p.id.toString() !== programId)
+          setOtherPrograms(filteredPrograms)
+        }
+      } catch (error) {
+        console.error('Error loading programs:', error)
+        // Fallback to empty array on error
+        setOtherPrograms([])
+      } finally {
+        setIsLoadingPrograms(false)
+      }
     }
-  ]
+
+    fetchOtherPrograms()
+  }, [programId])
 
   // Slider settings
   const reviewsPerPage = 3
@@ -252,32 +239,32 @@ export default function ProgramPage() {
             <div className="space-y-6">
               {/* Надзаголовок */}
               <div className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-                Программа Дополнительного Профессионального Образования
+                {program.category}
               </div>
               
               {/* Главный заголовок */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
-                Сварочные технологии
+                {program.title}
               </h1>
               
               {/* Описание */}
               <p className="text-lg text-gray-700 leading-relaxed">
-                Образовательная программа по специальности «Сварочные технологии» ориентирована на подготовку квалифицированных специалистов, владеющих теоретическими основами и практическими навыками сварки методом трения с перемешиванием.
+                {program.description}
               </p>
               
               {/* Info badges */}
               <div className="flex flex-wrap gap-4">
                 <div className="bg-white border border-black rounded-lg px-4 py-3">
                   <div className="text-sm font-medium text-gray-700">Формат</div>
-                  <div className="text-base font-semibold text-black">Дистанционно</div>
+                  <div className="text-base font-semibold text-black">{program.format}</div>
                 </div>
                 <div className="bg-white border border-black rounded-lg px-4 py-3">
                   <div className="text-sm font-medium text-gray-700">Продолжительность</div>
-                  <div className="text-base font-semibold text-black">18 ч. / 36 ч.</div>
+                  <div className="text-base font-semibold text-black">{program.duration}</div>
                 </div>
                 <div className="bg-white border border-black rounded-lg px-4 py-3">
-                  <div className="text-sm font-medium text-gray-700">Компетенция</div>
-                  <div className="text-base font-semibold text-black">Дизайн</div>
+                  <div className="text-sm font-medium text-gray-700">Уровень</div>
+                  <div className="text-base font-semibold text-black">{program.level}</div>
                 </div>
               </div>
               
@@ -294,13 +281,12 @@ export default function ProgramPage() {
             
             {/* Right Column - Image */}
             <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-lg" style={{
-                borderRadius: '20px',
-                transform: 'rotate(-2deg)'
-              }}>
-                <img 
-                  src="/api/placeholder/500/400" 
-                  alt="Дети с робот-машинкой"
+              <div className="relative rounded-2xl overflow-hidden">
+                <Image 
+                  src={program.image} 
+                  alt={program.title}
+                  width={500}
+                  height={400}
                   className="w-full h-auto object-cover"
                 />
               </div>
@@ -324,31 +310,21 @@ export default function ProgramPage() {
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 mb-6">Основные цели программы:</h3>
                   <ol className="space-y-4 text-gray-700 list-decimal list-inside">
-                    <li><strong>Формирование глубоких профессиональных компетенций</strong> в сфере ручной дуговой, полуавтоматической и автоматической сварки, пайки и наплавки материалов.</li>
-                    <li><strong>Развитие умения выбирать</strong> оптимальные методы и оборудование для решения конкретных производственных задач.</li>
-                    <li><strong>Подготовка специалистов,</strong> способных проводить диагностику дефектов, контроль качества сварочных соединений и обеспечивать безопасность производственного процесса.</li>
+                    {program.goals.map((goal, index) => (
+                      <li key={index}>{goal}</li>
+                    ))}
                   </ol>
                 </div>
                 
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 mb-6">Ключевые дисциплины программы:</h3>
                   <ul className="space-y-4 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="mr-3 mt-1.5">●</span>
-                      <span><strong>Физика и химия сварки:</strong> изучение свойств материалов, металлургии сварочного шва, особенностей протекания физико-химических процессов при сварке.</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="mr-3 mt-1.5">●</span>
-                      <span><strong>Оборудование и технология сварки:</strong> освоение устройства и принципа работы различного сварочного оборудования, выбор режимов сварки, подготовка и выполнение сварочных операций.</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="mr-3 mt-1.5">●</span>
-                      <span><strong>Контроль качества сварных швов:</strong> проведение неразрушающего контроля, дефектации сварочных соединений, использование приборов ультразвуковой и рентгеновской диагностики.</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="mr-3 mt-1.5">●</span>
-                      <span><strong>Организация производства и управление качеством:</strong> основы организации сварочного производства, стандартизация, сертификация продукции, экологические требования и техника безопасности.</span>
-                    </li>
+                    {program.disciplines.map((discipline, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="mr-3 mt-1.5">●</span>
+                        <span>{discipline}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -385,13 +361,13 @@ export default function ProgramPage() {
           {/* Title */}
           <h2 className="text-3xl font-bold text-center mb-12">Отзывы выпускников</h2>
           
-          {/* Cards Container - 50% width centered */}
-          <div className="w-1/2 mx-auto mb-8">
+          {/* Cards Container - responsive width */}
+          <div className="w-full sm:w-3/4 lg:w-1/2 mx-auto mb-8">
             <div className="relative overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={reviewsCurrentIndex}
-                  className="grid grid-cols-3 gap-6 cursor-grab active:cursor-grabbing"
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 cursor-grab active:cursor-grabbing"
                   drag="x"
                   dragConstraints={{ left: 0, right: 0 }}
                   onDragEnd={handleReviewsDrag}
@@ -454,105 +430,133 @@ export default function ProgramPage() {
       </section>
 
       {/* Other Programs Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 pb-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Title */}
           <h2 className="text-2xl font-bold mb-12">Другие программы</h2>
           
-          {/* Cards Grid */}
-          <div className="relative overflow-hidden mb-8">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={programsCurrentIndex}
-                className="grid grid-cols-4 gap-6 cursor-grab active:cursor-grabbing"
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                onDragEnd={handleProgramsDrag}
-                initial={{ opacity: 0, x: 300 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -300 }}
-                transition={{ duration: 0.3 }}
-              >
-                {currentPrograms.map((program, index) => (
-                  <motion.div
-                    key={program.id}
-                    className="border border-black rounded-lg overflow-hidden pointer-events-none"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                  >
-                    {/* Image */}
-                    <div className="h-48 relative">
-                      <Image
-                        src={program.image || "/placeholder.jpg"}
-                        alt={program.title}
-                        fill
-                        className="object-cover"
-                      />
+          {/* Loading State */}
+          {isLoadingPrograms ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-8">
+              {[...Array(4)].map((_, index) => (
+                <div key={index} className="border border-gray-200 rounded-lg overflow-hidden animate-pulse">
+                  <div className="h-48 bg-gray-200"></div>
+                  <div className="p-4">
+                    <div className="h-6 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-3"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-4 w-3/4"></div>
+                    <div className="flex justify-between items-center">
+                      <div className="h-6 bg-gray-200 rounded w-20"></div>
+                      <div className="h-8 w-8 bg-gray-200 rounded-full"></div>
                     </div>
-                    
-                    {/* Content */}
-                    <div className="p-4">
-                      {/* Title */}
-                      <h3 className="font-bold text-lg mb-2">{program.title}</h3>
-                      
-                      {/* Description */}
-                      <p className="text-sm text-gray-600 mb-3 leading-relaxed line-clamp-3">
-                        {program.description}
-                      </p>
-                      
-                      {/* Info labels */}
-                      <div className="space-y-1 mb-4">
-                        <div className="flex items-center gap-2 text-sm">
-                          <Clock className="h-4 w-4" />
-                          <span>{program.duration}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                          <span>📍</span>
-                          <span>{program.format}</span>
-                        </div>
-                      </div>
-                      
-                      {/* Button */}
-                      <div className="flex justify-between items-center">
-                        <span className="font-bold text-lg">{program.price}</span>
-                        <button className="bg-black text-white rounded-full p-2 hover:bg-gray-800 transition-colors pointer-events-auto">
-                          <ChevronRight className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-          
-          {/* Bottom navigation */}
-          <div className="flex justify-between items-center">
-            <button className="font-bold text-lg hover:text-gray-600 transition-colors">
-              Посмотреть ещё
-            </button>
-            
-            <div className="flex items-center gap-4">
-              <button
-                onClick={prevPrograms}
-                className="p-1 hover:text-gray-600 transition-colors"
-                disabled={totalProgramsPages <= 1}
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <span className="text-lg font-medium">
-                {programsCurrentIndex + 1}/{totalProgramsPages}
-              </span>
-              <button
-                onClick={nextPrograms}
-                className="p-1 hover:text-gray-600 transition-colors"
-                disabled={totalProgramsPages <= 1}
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
+          ) : otherPrograms.length > 0 ? (
+            <>
+              {/* Cards Grid */}
+              <div className="relative overflow-hidden mb-8">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={programsCurrentIndex}
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 cursor-grab active:cursor-grabbing"
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    onDragEnd={handleProgramsDrag}
+                    initial={{ opacity: 0, x: 300 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -300 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {currentPrograms.map((program, index) => (
+                      <motion.div
+                        key={program.id}
+                        className="border border-black rounded-lg overflow-hidden"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                      >
+                        <Link href={`/programs/${program.id}`} className="block hover:shadow-lg transition-shadow">
+                          {/* Image */}
+                          <div className="h-48 relative">
+                            <Image
+                              src={program.image || "/placeholder.jpg"}
+                              alt={program.title}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          
+                          {/* Content */}
+                          <div className="p-4">
+                            {/* Title */}
+                            <h3 className="font-bold text-lg mb-2">{program.title}</h3>
+                            
+                            {/* Description */}
+                            <p className="text-sm text-gray-600 mb-3 leading-relaxed line-clamp-3">
+                              {program.description}
+                            </p>
+                            
+                            {/* Info labels */}
+                            <div className="space-y-1 mb-4">
+                              <div className="flex items-center gap-2 text-sm">
+                                <Clock className="h-4 w-4" />
+                                <span>{program.duration}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-sm">
+                                <span>📍</span>
+                                <span>{program.format}</span>
+                              </div>
+                            </div>
+                            
+                            {/* Button */}
+                            <div className="flex justify-between items-center">
+                              <span className="font-bold text-lg">{program.price}</span>
+                              <div className="bg-black text-white rounded-full p-2 hover:bg-gray-800 transition-colors">
+                                <ChevronRight className="h-4 w-4" />
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+              
+              {/* Bottom navigation */}
+              <div className="flex justify-between items-center">
+                <button className="font-bold text-lg hover:text-gray-600 transition-colors">
+                  Посмотреть ещё
+                </button>
+                
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={prevPrograms}
+                    className="p-1 hover:text-gray-600 transition-colors"
+                    disabled={totalProgramsPages <= 1}
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <span className="text-lg font-medium">
+                    {programsCurrentIndex + 1}/{totalProgramsPages}
+                  </span>
+                  <button
+                    onClick={nextPrograms}
+                    className="p-1 hover:text-gray-600 transition-colors"
+                    disabled={totalProgramsPages <= 1}
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-500 text-lg">Другие программы не найдены</p>
+            </div>
+          )}
         </div>
       </section>
     </div>

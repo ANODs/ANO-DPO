@@ -18,7 +18,7 @@ export default function TestimonialsSection() {
   const [page, setPage] = useState(0)
   const [direction, setDirection] = useState(0)
 
-  const slidesToShow = width < 640 ? 1 : width < 768 ? 2 : 3 // Adjusted for typical testimonial display
+  const slidesToShow = width < 640 ? 1 : width < 768 ? 2 : width < 1024 ? 2 : 3 // Adjusted for typical testimonial display
   const totalPages = Math.ceil(testimonials.length / slidesToShow)
 
   const paginate = (newDirection: number) => {
@@ -58,7 +58,7 @@ export default function TestimonialsSection() {
         </motion.h2>
 
         <motion.div
-          className="relative overflow-hidden h-[320px] md:h-[300px]" // Adjusted height for typical certificate aspect ratio
+          className="relative overflow-hidden h-[280px] sm:h-[300px] md:h-[320px]" // Adjusted height for typical certificate aspect ratio
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           onDragEnd={(event, info) => {
@@ -75,13 +75,13 @@ export default function TestimonialsSection() {
               animate="center"
               exit="exit"
               transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-              className="absolute w-full h-full grid gap-x-6 items-center"
+              className="absolute w-full h-full grid gap-x-4 sm:gap-x-6 items-center"
               style={{ gridTemplateColumns: `repeat(${slidesToShow}, minmax(0, 1fr))` }}
             >
               {currentTestimonials.map((testimonial) => (
                 <div
                   key={testimonial.id}
-                  className="relative h-full w-full max-w-[220px] mx-auto rounded-lg overflow-hidden shadow-md border border-gray-200"
+                  className="relative h-full w-full max-w-[180px] sm:max-w-[200px] md:max-w-[220px] mx-auto rounded-lg overflow-hidden shadow-md border border-gray-200"
                 >
                   <Image
                     src={testimonial.image || "/placeholder.svg"}

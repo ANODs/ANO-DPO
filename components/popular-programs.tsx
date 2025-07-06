@@ -105,7 +105,7 @@ export default function PopularPrograms() {
   }, [])
 
   // Prevent hydration mismatch: use default values for SSR
-  const slidesToShow = isClient ? (width < 768 ? 1 : width < 1024 ? 2 : 3) : 3
+  const slidesToShow = isClient ? (width < 640 ? 1 : width < 768 ? 2 : width < 1024 ? 2 : 3) : 3
   const totalPages = Math.ceil(programs.length / slidesToShow)
 
   const paginate = (newDirection: number) => {
@@ -209,7 +209,7 @@ export default function PopularPrograms() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
             viewport={{ once: true }}
-            className="lg:col-span-2 lg:row-span-2 relative h-[440px] md:h-[420px] overflow-x-clip" // Clip horizontal overflow
+            className="lg:col-span-2 lg:row-span-2 relative h-[440px] sm:h-[420px] md:h-[400px] overflow-x-clip" // Clip horizontal overflow
             drag="x"
             dragConstraints={{ left: 0, right: 0 }} // Keep content from being dragged out of page container
             onDragEnd={(event, info) => {
@@ -233,7 +233,7 @@ export default function PopularPrograms() {
                 animate="center"
                 exit="exit"
                 transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-                className="absolute w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6"
+                className="absolute w-full h-full grid gap-x-4 sm:gap-x-6"
                 style={{ gridTemplateColumns: `repeat(${slidesToShow}, minmax(0, 1fr))` }}
               >
                 {currentPrograms.map((program) => (

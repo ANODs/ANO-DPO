@@ -78,7 +78,7 @@ export default function ExpertsSection() {
   const [page, setPage] = useState(0)
   const [direction, setDirection] = useState(0)
 
-  const slidesToShow = width < 640 ? 2 : width < 768 ? 3 : width < 1024 ? 4 : 5 // Adjusted for better spacing
+  const slidesToShow = width < 480 ? 2 : width < 640 ? 3 : width < 768 ? 3 : width < 1024 ? 4 : 5 // Adjusted for better spacing
   const totalPages = Math.ceil(experts.length / slidesToShow)
 
   const paginate = (newDirection: number) => {
@@ -117,7 +117,7 @@ export default function ExpertsSection() {
         </motion.h2>
 
         <motion.div
-          className="relative overflow-hidden h-[220px] md:h-[240px]" // Adjusted height
+          className="relative overflow-hidden h-[200px] sm:h-[220px] md:h-[240px]" // Adjusted height
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           onDragEnd={(event, info) => {
@@ -134,12 +134,12 @@ export default function ExpertsSection() {
               animate="center"
               exit="exit"
               transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-              className="absolute w-full h-full grid gap-x-4 md:gap-x-6 items-start"
+              className="absolute w-full h-full grid gap-x-2 sm:gap-x-4 md:gap-x-6 items-start"
               style={{ gridTemplateColumns: `repeat(${slidesToShow}, minmax(0, 1fr))` }}
             >
               {currentExperts.map((expert) => (
                 <div key={expert.id} className="text-center flex flex-col items-center">
-                  <div className="relative w-24 h-24 md:w-28 md:h-28 mb-3">
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 mb-2 sm:mb-3">
                     <Image
                       src={expert.image || "/placeholder.svg"}
                       alt={expert.name}
@@ -148,10 +148,10 @@ export default function ExpertsSection() {
                       style={{ pointerEvents: "none" }}
                     />
                   </div>
-                  <h3 className="font-semibold text-sm md:text-base text-brand-text-dark mb-0.5 leading-tight line-clamp-2">
+                  <h3 className="font-semibold text-xs sm:text-sm md:text-base text-brand-text-dark mb-0.5 leading-tight line-clamp-2">
                     {expert.name}
                   </h3>
-                  <p className="text-xs text-brand-text-light leading-snug line-clamp-3">{expert.specialization}</p>
+                  <p className="text-xs sm:text-xs text-brand-text-light leading-snug line-clamp-3">{expert.specialization}</p>
                 </div>
               ))}
             </motion.div>

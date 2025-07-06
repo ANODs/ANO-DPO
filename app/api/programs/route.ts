@@ -15,58 +15,20 @@ interface Program {
 const mockPrograms: Program[] = [
   {
     id: 1,
-    title: "Название программы",
-    description: "Краткое описание. Краткое описание. Краткое описание.",
-    duration: "16 ч.",
-    format: "Дистанционно",
+    title: "Промышленная робототехника (ДПО)",
+    description: "Подготовка специалистов в области проектирования, программирования и обслуживания промышленных роботов.",
+    duration: "72 ч.",
+    format: "Очно/Дистанционно",
     image: "/programms/robototech.png",
     category: "additional"
   },
   {
     id: 2,
-    title: "Название программы",
-    description: "Краткое описание. Краткое описание. Краткое описание.",
-    duration: "16 ч.",
-    format: "Дистанционно",
-    price: "150 000 руб.",
-    image: "/programms/robototech.png",
-    category: "additional"
-  },
-  {
-    id: 3,
-    title: "Название программы",
-    description: "Краткое описание. Краткое описание. Краткое описание.",
-    duration: "36 часов",
-    format: "Дистанционно",
-    image: "/programms/robototech.png",
-    category: "qualification"
-  },
-  {
-    id: 4,
-    title: "Название программы",
-    description: "Краткое описание. Краткое описание. Краткое описание.",
-    duration: "16 ч.",
-    format: "Дистанционно",
-    image: "/programms/robototech.png",
-    category: "masterclass"
-  },
-  {
-    id: 5,
-    title: "Название программы",
-    description: "Краткое описание. Краткое описание. Краткое описание.",
-    duration: "16 ч.",
-    format: "Дистанционно",
-    price: "150 000 руб.",
-    image: "/programms/robototech.png",
-    category: "excursion"
-  },
-  {
-    id: 6,
-    title: "Название программы",
-    description: "Краткое описание. Краткое описание. Краткое описание.",
-    duration: "16 ч.",
-    format: "Дистанционно",
-    image: "/programms/robototech.png",
+    title: "Архитектор будущего: Нейросетевое искусство (ДПО)",
+    description: "Подготовка креативных профессионалов для создания художественных проектов с использованием нейросетей.",
+    duration: "48 ч.",
+    format: "Очно/Дистанционно",
+    image: "/placeholder.svg?height=180&width=280",
     category: "additional"
   }
 ]
