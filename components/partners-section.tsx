@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -26,13 +26,17 @@ const partners = [
 ]
 
 export default function PartnersSection() {
-
-
   const { width } = useWindowSize()
   const [page, setPage] = useState(0)
   const [direction, setDirection] = useState(0)
+  const [isMounted, setIsMounted] = useState(false)
 
-  const slidesToShow = width < 640 ? 2 : width < 768 ? 3 : width < 1024 ? 4 : 5
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  // Use default value during SSR to prevent hydration mismatch
+  const slidesToShow = isMounted ? (width < 640 ? 2 : width < 768 ? 3 : width < 1024 ? 4 : 5) : 5
   const totalPages = Math.ceil(partners.length / slidesToShow)
 
   const paginate = (newDirection: number) => {

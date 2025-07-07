@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -17,8 +17,14 @@ export default function TestimonialsSection() {
   const { width } = useWindowSize()
   const [page, setPage] = useState(0)
   const [direction, setDirection] = useState(0)
+  const [isMounted, setIsMounted] = useState(false)
 
-  const slidesToShow = width < 640 ? 1 : width < 768 ? 2 : width < 1024 ? 2 : 3 // Adjusted for typical testimonial display
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  // Use default value during SSR to prevent hydration mismatch
+  const slidesToShow = isMounted ? (width < 640 ? 1 : width < 768 ? 2 : width < 1024 ? 2 : 3) : 3
   const totalPages = Math.ceil(testimonials.length / slidesToShow)
 
   const paginate = (newDirection: number) => {
