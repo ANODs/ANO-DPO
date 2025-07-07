@@ -116,7 +116,7 @@ export default function ExpertsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-2xl lg:text-3xl font-bold text-center text-brand-text-dark mb-8 lg:mb-10"
+          className="text-2xl lg:text-3xl font-bold text-brand-text-dark mb-8 lg:mb-10"
         >
           Наши эксперты
         </motion.h2>
