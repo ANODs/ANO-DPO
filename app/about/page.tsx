@@ -48,7 +48,7 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
-                  className="container mx-auto px-4 mt-[50px] md:mt-[100px]">
+                  className="container mx-auto px-0 mt-[50px] md:mt-[100px]">
         <Card className="bg-[#D4D2F9] mb-[50px] md:mb-[100px]">
           <CardHeader>
             <CardTitle className="text-center">
@@ -66,10 +66,10 @@ export default function AboutPage() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="py-8 lg:py-16 bg-white"
+          className="py-8 lg:py-24 bg-white"
           id="about"
         >
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-0">
             <div className="mb-[100px]">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}

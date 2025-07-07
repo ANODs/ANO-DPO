@@ -18,8 +18,8 @@ const mockPopularPrograms: Program[] = [
     id: 1,
     title: "Промышленная робототехника (ДПО)",
     description: "Подготовка специалистов в области проектирования, программирования и обслуживания промышленных роботов.",
-    duration: "72 ч.",
-    format: "Очно/Дистанционно",
+    duration: "36 ч.",
+    format: "Дистанционно",
     image: "/programms/robototech.png",
     category: "additional",
     isPopular: true
@@ -28,32 +28,12 @@ const mockPopularPrograms: Program[] = [
     id: 2,
     title: "Архитектор будущего: Нейросетевое искусство (ДПО)",
     description: "Подготовка креативных профессионалов для создания художественных проектов с использованием нейросетей.",
-    duration: "48 ч.",
-    format: "Очно/Дистанционно",
+    duration: "36 ч.",
+    format: "Дистанционно",
     image: "/programms/neural.jpg",
     category: "additional",
     isPopular: true
   },
-  {
-    id: 3,
-    title: "Цифровые технологии в образовании",
-    description: "Современные подходы к использованию цифровых инструментов в образовательном процессе.",
-    duration: "36 ч.",
-    format: "Дистанционно",
-    image: "/placeholder.jpg",
-    category: "professional",
-    isPopular: true
-  },
-  {
-    id: 4,
-    title: "Управление проектами в IT",
-    description: "Методы и инструменты эффективного управления IT-проектами.",
-    duration: "64 ч.",
-    format: "Очно/Дистанционно",
-    image: "/placeholder.jpg",
-    category: "professional",
-    isPopular: true
-  }
 ]
 
 export async function GET(request: NextRequest) {

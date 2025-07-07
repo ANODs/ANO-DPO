@@ -7,8 +7,6 @@ import Link from "next/link"
 import Image from "next/image"
 
 export default function Footer() {
-  const menuItems = ["Программы обучения", "О нас", "Новости/Блог", "Документы"]
-
   return (
     <motion.footer
       initial={{ opacity: 0 }}
@@ -43,16 +41,38 @@ export default function Footer() {
           >
           <nav>
             <ul className="space-y-1 lg:space-y-2">
-              {menuItems.map((item) => (
-                <li key={item}>
-                  <Link
-                    href={`/${item.toLowerCase().replace(/\s+/g, "-").replace("/", "-")}`}
-                    className="text-sm lg:text-base text-gray-300 hover:text-white transition-colors block py-1"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link
+                  href="/programs"
+                  className="text-sm lg:text-base text-gray-300 hover:text-white transition-colors block py-1"
+                >
+                  Программы обучения
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  className="text-sm lg:text-base text-gray-300 hover:text-white transition-colors block py-1"
+                >
+                  О нас
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/news"
+                  className="text-sm lg:text-base text-gray-300 hover:text-white transition-colors block py-1"
+                >
+                  Новости/Блог
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/documents"
+                  className="text-sm lg:text-base text-gray-300 hover:text-white transition-colors block py-1"
+                >
+                  Документы
+                </Link>
+              </li>
             </ul>
           </nav>
           </motion.div>
@@ -92,11 +112,17 @@ export default function Footer() {
           className="pt-6 lg:pt-8 text-center text-xs lg:text-sm text-gray-400"
         >
           <div className="border-b border-[#FFFFFF80] pb-5 flex flex-col space-y-2 lg:flex-row lg:items-center lg:space-y-0 lg:space-x-8">
-            <Link href="/privacy-policy" className="hover:text-white transition-colors">
+            <Link href="/documents/29" target="_blank" className="hover:text-white transition-colors">
               Политика обработки персональных данных
             </Link>
-            <Link href="/consent" className="hover:text-white transition-colors">
+            <Link href="/documents/30" target="_blank" className="hover:text-white transition-colors">
               Согласие на обработку персональных данных
+            </Link>
+            <Link href="/documents/28" target="_blank" className="hover:text-white transition-colors">
+              Политика Cookies
+            </Link>
+            <Link href="/documents/31" target="_blank" className="hover:text-white transition-colors">
+              Политика конфиденциальности
             </Link>
           </div>
           <p className="mt-3 lg:mt-4 text-left">© 2025 АНО ДПО</p>

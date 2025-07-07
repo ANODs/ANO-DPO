@@ -17,8 +17,8 @@ const mockPrograms: Program[] = [
     id: 1,
     title: "Промышленная робототехника (ДПО)",
     description: "Подготовка специалистов в области проектирования, программирования и обслуживания промышленных роботов.",
-    duration: "72 ч.",
-    format: "Очно/Дистанционно",
+    duration: "36 ч.",
+    format: "Дистанционно",
     image: "/programms/robototech.png",
     category: "additional"
   },
@@ -26,8 +26,8 @@ const mockPrograms: Program[] = [
     id: 2,
     title: "Архитектор будущего: Нейросетевое искусство (ДПО)",
     description: "Подготовка креативных профессионалов для создания художественных проектов с использованием нейросетей.",
-    duration: "48 ч.",
-    format: "Очно/Дистанционно",
+    duration: "36 ч.",
+    format: "Дистанционно",
     image: "/programms/neural.jpg",
     category: "additional"
   }

@@ -57,7 +57,7 @@ export default function ProgramCategories() {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="py-8 lg:py-16 bg-white"
+      className="py-8 lg:pb-24 lg:pt-0 bg-white"
       id="news"
     >
       <div className="container px-4">
@@ -66,7 +66,7 @@ export default function ProgramCategories() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-lg sm:text-xl lg:text-4xl font-bold text-gray-900 mb-6 lg:mb-12 lg:text-center"
+          className="text-lg sm:text-xl lg:text-4xl font-bold text-gray-900 mb-6 lg:mb-12"
         >
           Выберите программу по направлению
           <br className="hidden lg:block" />

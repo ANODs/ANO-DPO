@@ -7,6 +7,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
 
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isProgramsExpanded, setIsProgramsExpanded] = useState(false)
@@ -21,10 +22,10 @@ export default function Header() {
   ]
 
   const programSubItems = [
-    { name: "Дополнительное образование", href: "/additional-education" },
-    { name: "Повышение квалификации", href: "/advanced-training" },
-    { name: "Мастер-классы", href: "/master-classes" },
-    { name: "Экскурсии", href: "/excursions" }
+    { name: "Дополнительное образование", href: "/programs?category=additional" },
+    { name: "Повышение квалификации", href: "/programs?category=professional" },
+    { name: "Мастер-классы", href: "/programs?category=master-classes" },
+    { name: "Экскурсии", href: "/programs?category=excursions" }
   ]
 
   const toggleMenu = () => {
@@ -42,7 +43,7 @@ export default function Header() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="bg-white shadow-sm border-b sticky top-0 z-50"
       >
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-0 px-0 py-4">
           {/* Desktop Navigation */}
           <div className="hidden lg:flex lg:items-center lg:justify-between">
             {/* Logo */}
@@ -65,7 +66,7 @@ export default function Header() {
                   >
                     <Link
                       href={item.href}
-                      className="text-gray-700 hover:text-gray-800 transition-all duration-300 font-medium text-sm py-2 px-1 relative group"
+                      className="text-gray-700 hover:text-gray-800 transition-all duration-300 font-medium py-2 px-1 relative group"
                     >
                       {item.name}
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-800 transition-all duration-300 group-hover:w-full"></span>
@@ -75,11 +76,12 @@ export default function Header() {
               </ul>
             </nav>
 
-            {/* Login Button */}
+            {/* Action Buttons */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 }}
+              className="flex items-center gap-3"
             >
               <Link href='https://lms.anoacademy.ru' target="_blank" className="bg-black rounded-xl text-white hover:bg-gray-800 px-5 py-4 text-[16px]">Перейти в личный кабинет</Link>
             </motion.div>
@@ -89,7 +91,9 @@ export default function Header() {
           <div className="lg:hidden flex items-center justify-between">
             {/* Mobile Logo */}
             <motion.div whileHover={{ scale: 1.05 }} className="flex items-center space-x-3">
-              <Image src="/logo.png" width={102} height={33} alt="logo" />
+              <Link href="/">
+                <Image src="/logo.png" width={102} height={33} alt="logo" />
+              </Link>
             </motion.div>
 
             {/* Hamburger Menu Button */}
@@ -136,9 +140,9 @@ export default function Header() {
                 </motion.button>
               </div>
 
-              {/* Login Button */}
-              <div className="px-4 mb-4">
-                <Link href='https://lms.anoacademy.ru' target="_blank" className="text-[16px] px-5 py-4 w-full h-12 bg-black text-white hover:bg-gray-800 rounded-lg">
+              {/* Action Buttons */}
+              <div className="px-4 mb-4 space-y-3">
+                <Link href='https://lms.anoacademy.ru' target="_blank" className="block text-center text-[16px] px-5 py-4 w-full h-12 bg-black text-white hover:bg-gray-800 rounded-lg">
                   Перейти в личный кабинет
                 </Link>
               </div>
@@ -194,7 +198,7 @@ export default function Header() {
                         </div>
                       ) : (
                         <Link
-                          href={item.href}
+                          href={item.href === "#footer" ? "/#footer" : item.href}
                           className="block px-4 py-3 text-gray-900 font-medium border-b border-gray-200 hover:bg-white transition-colors"
                           onClick={toggleMenu}
                         >

@@ -39,9 +39,11 @@ export default function ProgramCard({
       </div>
 
       {/* 2. Заголовок */}
-      <h3 className="text-xl font-bold text-gray-900 leading-tight m-0">
-        {title}
-      </h3>
+      <Link href={`/programs/${id}`} className="no-underline">
+        <h3 className="text-xl font-bold text-gray-900 leading-tight m-0 hover:text-gray-700 transition-colors cursor-pointer">
+          {title}
+        </h3>
+      </Link>
 
       {/* 3. Описание с line-clamp */}
       <p className="text-gray-600 text-base leading-[1.4] line-clamp-2 overflow-hidden break-words m-0">

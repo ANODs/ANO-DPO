@@ -2,9 +2,12 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import { useCallbackForm } from "@/contexts/callback-form-context"
 import Image from "next/image"
 
 export default function ContactSection() {
+  const { openForm } = useCallbackForm()
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -14,7 +17,7 @@ export default function ContactSection() {
       className="py-8 lg:py-6 lg:mx-auto container rounded-lg relative overflow-clip"
     >
       <Image src={'./callbackbg.png'} alt="background" fill className="xl:object-contain object-cover z-0 bg-[#D4D2F9] md:h-auto" />
-      <div className="container mx-auto px-4 z-20 relative">
+      <div className="container mx-auto px-0 z-20 relative">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -44,7 +47,10 @@ export default function ContactSection() {
             <p className="text-sm lg:text-lg  leading-relaxed">
               Мы будем рады ответить Вам на все интересующие вопросы и проконсультировать по нашим программам.
             </p>
-            <Button className="w-full lg:w-auto h-11 lg:h-auto bg-[#1a1a1a] text-white hover:bg-gray-100">
+            <Button 
+              onClick={openForm}
+              className="w-full lg:w-auto h-11 lg:h-auto bg-[#1a1a1a] text-white hover:bg-gray-800"
+            >
               Оставить заявку
             </Button>
           </motion.div>

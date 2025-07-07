@@ -50,9 +50,9 @@ export default function TestimonialsSection() {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="py-8 lg:py-16 bg-white"
+      className="py-8 lg:pt-0 lg:pb-24 bg-white"
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto p-6">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

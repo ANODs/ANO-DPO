@@ -22,7 +22,7 @@ const mockPrograms: Program[] = [
     id: 1,
     title: "Название программы",
     description: "Краткое описание. Краткое описание. Краткое описание.",
-    duration: "16 ч.",
+    duration: "36 ч.",
     format: "Дистанционно",
     image: "/programms/robototech.png",
     category: "additional"
@@ -31,7 +31,7 @@ const mockPrograms: Program[] = [
     id: 2,
     title: "Название программы",
     description: "Краткое описание. Краткое описание. Краткое описание.",
-    duration: "16 ч.",
+    duration: "36 ч.",
     format: "Дистанционно",
     price: "150 000 руб.",
     image: "/programms/robototech.png",
@@ -50,7 +50,7 @@ const mockPrograms: Program[] = [
     id: 4,
     title: "Название программы",
     description: "Краткое описание. Краткое описание. Краткое описание.",
-    duration: "16 ч.",
+    duration: "36 ч.",
     format: "Дистанционно",
     image: "/programms/robototech.png",
     category: "masterclass"
@@ -59,7 +59,7 @@ const mockPrograms: Program[] = [
     id: 5,
     title: "Название программы",
     description: "Краткое описание. Краткое описание. Краткое описание.",
-    duration: "16 ч.",
+    duration: "36 ч.",
     format: "Дистанционно",
     price: "150 000 руб.",
     image: "/programms/robototech.png",
@@ -69,7 +69,7 @@ const mockPrograms: Program[] = [
     id: 6,
     title: "Название программы",
     description: "Краткое описание. Краткое описание. Краткое описание.",
-    duration: "16 ч.",
+    duration: "36 ч.",
     format: "Дистанционно",
     image: "/programms/robototech.png",
     category: "additional"
@@ -84,7 +84,7 @@ const categories = [
 ]
 
 const filterOptions = [
-  { id: "16h", label: "16 часов" },
+  { id: "16h", label: "36 часов" },
   { id: "36h", label: "36 часов" }
 ]
 
@@ -116,13 +116,22 @@ export default function ProgramsList() {
       if (data.programs && data.programs.length > 0) {
         setPrograms(data.programs)
       } else {
-        // Если программы не найдены, используем мок данные
-        setPrograms(mockPrograms.filter(program => program.category === activeCategory))
+        // Если программы не найдены и нет активных фильтров, используем мок данные
+        if (selectedFilters.length === 0) {
+          setPrograms(mockPrograms.filter(program => program.category === activeCategory))
+        } else {
+          // Если есть активные фильтры и ничего не найдено, показываем пустой список
+          setPrograms([])
+        }
       }
     } catch (err) {
       setError('Ошибка загрузки программ')
-      // В случае ошибки также используем мок данные
-      setPrograms(mockPrograms.filter(program => program.category === activeCategory))
+      // В случае ошибки используем мок данные только если нет активных фильтров
+      if (selectedFilters.length === 0) {
+        setPrograms(mockPrograms.filter(program => program.category === activeCategory))
+      } else {
+        setPrograms([])
+      }
     } finally {
       setIsLoading(false)
     }
@@ -134,9 +143,10 @@ export default function ProgramsList() {
 
   // Обновляем активную категорию при изменении URL параметров
   useEffect(() => {
-    const categoryFromUrl = searchParams.get('category') || 'additional'
-    if (categoryFromUrl !== activeCategory) {
-      setActiveCategory(categoryFromUrl)
+    // Всегда устанавливаем категорию "Дополнительное образование"
+    const fixedCategory = 'additional'
+    if (fixedCategory !== activeCategory) {
+      setActiveCategory(fixedCategory)
       setSelectedFilters([]) // Сбрасываем фильтры при смене категории через URL
     }
   }, [searchParams])
@@ -158,7 +168,7 @@ export default function ProgramsList() {
     <div className="pb-16">
       {/* Header */}
       <section className="pt-8 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-0">
+        <div className="container mx-auto px-0 sm:px-6 lg:px-0">
           <motion.h1 
             className="text-4xl font-bold mb-8"
             initial={{ opacity: 0, y: 30 }}
@@ -178,11 +188,14 @@ export default function ProgramsList() {
             {categories.map((category) => (
               <button
                 key={category.id}
-                onClick={() => handleCategoryChange(category.id)}
+                onClick={() => category.id === 'additional' ? handleCategoryChange(category.id) : null}
+                disabled={category.id !== 'additional'}
                 className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                   activeCategory === category.id
                     ? "bg-black text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    : category.id === 'additional'
+                    ? "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    : "bg-gray-300 text-gray-400 cursor-not-allowed"
                 }`}
               >
                 {category.label}
@@ -194,10 +207,10 @@ export default function ProgramsList() {
 
       {/* Main Content */}
       <section className="">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-0">
+        <div className="container mx-auto px-0 sm:px-6 lg:px-0">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Desktop Sidebar */}
-            <div className="hidden lg:block">
+            <div className="hidden">
               <div className="bg-gray-50 rounded-lg p-6">
                 <h3 className="text-lg font-bold mb-6">Поиск по программам</h3>
                 
@@ -220,7 +233,7 @@ export default function ProgramsList() {
             </div>
 
             {/* Mobile Filter Button */}
-            <div className="lg:hidden mb-6">
+            <div className="hidden">
               <button
                 onClick={() => setIsMobileFilterOpen(!isMobileFilterOpen)}
                 className="w-full bg-gray-100 text-gray-700 px-4 py-3 rounded-lg font-medium"
@@ -255,7 +268,7 @@ export default function ProgramsList() {
             {/* Programs Grid */}
             <div className="lg:col-span-3">
               <motion.div 
-                className="flex flex-wrap justify-start gap-8"
+                className="flex flex-wrap justify-center lg:justify-start gap-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -285,7 +298,26 @@ export default function ProgramsList() {
               
               {!isLoading && programs.length === 0 && (
                 <div className="text-center py-12">
-                  <p className="text-gray-500 text-lg">Программы не найдены</p>
+                  <div className="max-w-md mx-auto">
+                    <div className="text-6xl mb-4">🔍</div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                      {selectedFilters.length > 0 ? 'Курсы не найдены' : 'Программы не найдены'}
+                    </h3>
+                    <p className="text-gray-500">
+                      {selectedFilters.length > 0 
+                        ? 'Попробуйте изменить параметры поиска или сбросить фильтры'
+                        : 'В данной категории пока нет доступных программ'
+                      }
+                    </p>
+                    {selectedFilters.length > 0 && (
+                      <button
+                        onClick={() => setSelectedFilters([])}
+                        className="mt-4 px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
+                      >
+                        Сбросить фильтры
+                      </button>
+                    )}
+                  </div>
                 </div>
               )}
               

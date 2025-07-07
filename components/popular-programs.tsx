@@ -148,10 +148,10 @@ export default function PopularPrograms() {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="py-8 lg:py-16 bg-white"
+      className="py-8 lg:py-24 bg-white"
       id="programs"
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-0">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Left Column: Title and Controls */}
           <motion.div
@@ -174,7 +174,7 @@ export default function PopularPrograms() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
             viewport={{ once: true }}
-            className="lg:col-span-2 lg:row-span-2 relative h-[440px] sm:h-[420px] md:h-[400px] overflow-x-clip" // Clip horizontal overflow
+            className="lg:col-span-2 lg:row-span-2 relative h-[444px] overflow-x-clip" // Clip horizontal overflow
             drag="x"
             dragConstraints={{ left: 0, right: 0 }} // Keep content from being dragged out of page container
             onDragEnd={(event, info) => {
@@ -198,10 +198,10 @@ export default function PopularPrograms() {
                 animate="center"
                 exit="exit"
                 transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-                className="absolute w-full h-full flex gap-4 sm:gap-6"
+                className="absolute w-full h-full flex gap-4 sm:gap-6 justify-center sm:justify-start"
               >
                 {currentPrograms.map((program, index) => (
-                  <div key={program.id} className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3">
+                  <div key={program.id} className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 flex justify-center">
                     <ProgramCard
                       id={program.id}
                       title={program.title}

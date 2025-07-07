@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useParams } from 'next/navigation'
 import { useWindowSize } from '@/hooks/use-window-size'
+import { useCallbackForm } from '@/contexts/callback-form-context'
 import ProgramCard from '@/components/program-card'
 
 export default function ProgramPage() {
@@ -22,6 +23,7 @@ export default function ProgramPage() {
   const [lastScrollTime, setLastScrollTime] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const { width } = useWindowSize()
+  const { openForm } = useCallbackForm()
 
   // Programs data
   const programs = {
@@ -30,9 +32,9 @@ export default function ProgramPage() {
       title: "Промышленная робототехника (ДПО)",
       category: "Дополнительное профессиональное образование",
       description: "Образовательная программа по промышленной робототехнике направлена на подготовку специалистов, обладающих глубокими знаниями и практическими навыками в области проектирования, программирования, эксплуатации и обслуживания промышленных роботов и автоматизированных производственных линий.",
-      duration: "72 ч / 9 дн",
-      format: "Очно/Дистанционно",
-      level: "Профессиональная переподготовка",
+      duration: "36 ч",
+      format: "Дистанционно",
+      level: "Дополнительно профессиональное образование",
       price: "По запросу",
       image: "/programms/robototech.png",
       goals: [
@@ -56,9 +58,9 @@ export default function ProgramPage() {
       title: "Архитектор будущего: Нейросетевое искусство (ДПО)",
       category: "Дополнительное профессиональное образование",
       description: "Инновационная образовательная программа, объединяющая искусство и технологии искусственного интеллекта. Участники изучают создание цифрового искусства с помощью нейронных сетей, генеративных алгоритмов и современных AI-инструментов, развивая навыки в области компьютерной графики, дизайна и программирования.",
-      duration: "108 ч / 14 дн",
-      format: "Очно/Дистанционно",
-      level: "Профессиональная переподготовка",
+      duration: "36 ч",
+      format: "Дистанционно",
+      level: "Дополнительно профессиональное образование",
       price: "По запросу",
       image: "/programms/neural.jpg",
       goals: [
@@ -340,7 +342,7 @@ export default function ProgramPage() {
           <div 
             className="absolute inset-0" 
             style={{
-              background: 'linear-gradient(135deg, #D4D2F9 0%, #D4D2F9 50%, #F4FCBC 50%, #F4FCBC 100%)'
+              background: 'linear-gradient(153deg, #D4D2F9 0%, #D4D2F9 50%, #F4FCBC 50%, #F4FCBC 100%)'
             }}
           />
         </div>
@@ -382,10 +384,16 @@ export default function ProgramPage() {
               
               {/* Action buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-black text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors">
+                <button 
+                  onClick={openForm}
+                  className="bg-black text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors"
+                >
                   Записаться на курс
                 </button>
-                <button className="bg-white text-black border border-black px-8 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                <button 
+                  onClick={openForm}
+                  className="bg-white text-black border border-black px-8 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+                >
                   Остались вопросы
                 </button>
               </div>
@@ -457,7 +465,10 @@ export default function ProgramPage() {
             <div className="lg:col-span-1">
               <div className="sticky top-8">
                 <div className="bg-gray-50 rounded-lg p-6">
-                  <button className="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors">
+                  <button 
+                    onClick={openForm}
+                    className="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors"
+                  >
                     Записаться на курс
                   </button>
                 </div>

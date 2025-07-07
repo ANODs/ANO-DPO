@@ -6,7 +6,7 @@ import Header from "@/components/header";
 const NotFound = () => {
   return (
 
-    <div className="relative p-5 flex flex-col items-center justify-center leading-0 mt-52">
+    <div className="relative p-5 flex flex-col items-center justify-center leading-0 min-h-[calc(100dvh_-_200px)]">
       <h2 className="text-[128px] font-bold mb-3">404</h2>
       <p className="text-[#5d5d5d] text-center mb-[30px]">Похоже что-то пошло не так... Страница, на которую Вы пытаетесь попасть не существует или была удалена.</p>
       <Link href="/">
