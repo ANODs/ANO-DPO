@@ -155,12 +155,12 @@ export default function ProgramsList() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="pb-16">
       {/* Header */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pt-8 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-0">
           <motion.h1 
-            className="text-4xl font-bold text-center mb-12"
+            className="text-4xl font-bold mb-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -170,7 +170,7 @@ export default function ProgramsList() {
           
           {/* Category Tabs */}
           <motion.div 
-            className="flex flex-wrap justify-center gap-4 mb-12"
+            className="flex flex-wrap gap-4 mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -193,8 +193,8 @@ export default function ProgramsList() {
       </section>
 
       {/* Main Content */}
-      <section className="pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-0">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Desktop Sidebar */}
             <div className="hidden lg:block">

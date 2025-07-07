@@ -7,7 +7,7 @@ function ProgramsListFallback() {
   return (
     <div className="">
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-4xl font-bold text-center mb-12">Программы обучения</div>
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {[1, 2, 3, 4].map((i) => (
@@ -17,7 +17,7 @@ function ProgramsListFallback() {
         </div>
       </section>
       <section className="pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <div className="hidden lg:block">
               <div className="bg-gray-100 animate-pulse h-64 rounded-lg"></div>
@@ -38,11 +38,11 @@ function ProgramsListFallback() {
 
 export default function ProgramsPage() {
   return (
-    <div className="pb-16">
+    <>
       <Suspense fallback={<ProgramsListFallback />}>
         <ProgramsList />
       </Suspense>
       <ContactSection />
-    </div>
+    </>
   )
 }
