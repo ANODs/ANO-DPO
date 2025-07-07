@@ -28,7 +28,7 @@ const mockPrograms: Program[] = [
     description: "Подготовка креативных профессионалов для создания художественных проектов с использованием нейросетей.",
     duration: "48 ч.",
     format: "Очно/Дистанционно",
-    image: "/placeholder.svg?height=180&width=280",
+    image: "/programms/neural.jpg",
     category: "additional"
   }
 ]

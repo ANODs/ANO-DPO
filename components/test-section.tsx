@@ -14,15 +14,15 @@ export default function TestSection() {
       className="bg-[#F2FCBF] py-8 lg:py-16 mx-4 lg:mx-0 rounded-[26px] lg:rounded-none"
     >
       <div className="container mx-auto px-4">
-        <div className="space-y-4 lg:space-y-0 lg:grid lg:grid-cols-10 lg:gap-8 lg:items-center">
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-6 lg:space-y-0 lg:gap-8">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
-            className="lg:col-span-7 space-y-3 lg:space-y-4"
+            className="flex-1 space-y-3 lg:space-y-4"
           >
-            <h2 className="text-[22px] sm:text-xl lg:text-4xl font-bold  leading-tight">
+            <h2 className="text-[22px] sm:text-xl lg:text-4xl font-bold leading-tight">
               Проверь себя и узнай уровень знаний
               <br />в интересующей программе
             </h2>
@@ -36,9 +36,9 @@ export default function TestSection() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
             viewport={{ once: true }}
-            className="lg:col-span-3"
+            className="flex-shrink-0"
           >
-            <Link href="/test" className="p-4 w-full h-11 lg:h-auto bg-[#1a1a1a] hover:bg-[#1a1a1b] text-white rounded-[10px]">
+            <Link href="/test" className="inline-block px-8 lg:px-16 py-4 bg-[#1a1a1a] hover:bg-[#1a1a1b] text-white rounded-[10px] transition-colors">
               Пройти тест
             </Link>
           </motion.div>

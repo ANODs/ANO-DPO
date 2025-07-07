@@ -1,20 +1,27 @@
 "use client"
 
 import { useState, useEffect } from 'react'
-import { ChevronRight, ChevronLeft, Star, Clock } from 'lucide-react'
+import { ChevronRight, ChevronLeft, ArrowLeft, Play, Users, Calendar, MapPin, Award, Target, BookOpen, Lightbulb, TrendingUp, CheckCircle, Star, Quote, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence, PanInfo } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useParams } from 'next/navigation'
+import { useWindowSize } from '@/hooks/use-window-size'
+import ProgramCard from '@/components/program-card'
 
 export default function ProgramPage() {
   const params = useParams()
   const programId = params.id as string
   const [reviewsCurrentIndex, setReviewsCurrentIndex] = useState(0)
   const [programsCurrentIndex, setProgramsCurrentIndex] = useState(0)
-  const [direction, setDirection] = useState(0)
+  const [reviewsDirection, setReviewsDirection] = useState(1)
+  const [programsDirection, setProgramsDirection] = useState(1)
+  const [isClient, setIsClient] = useState(false)
+  const [lastScrollTime, setLastScrollTime] = useState(0)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const { width } = useWindowSize()
 
   // Programs data
   const programs = {
@@ -53,7 +60,7 @@ export default function ProgramPage() {
       format: "Очно/Дистанционно",
       level: "Профессиональная переподготовка",
       price: "По запросу",
-      image: "/placeholder.jpg",
+      image: "/programms/neural.jpg",
       goals: [
         "Освоение принципов работы генеративных нейронных сетей и их применения в создании визуального искусства.",
         "Изучение современных AI-инструментов для создания изображений, анимации и интерактивных инсталляций.",
@@ -140,6 +147,10 @@ export default function ProgramPage() {
 
   // Load other programs from API
   useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  useEffect(() => {
     const fetchOtherPrograms = async () => {
       setIsLoadingPrograms(true)
       try {
@@ -150,11 +161,16 @@ export default function ProgramPage() {
           // Filter out current program
           const filteredPrograms = data.programs.filter((p: any) => p.id.toString() !== programId)
           setOtherPrograms(filteredPrograms)
+        } else {
+          // Fallback to mock data if no programs from API
+          const mockPrograms = Object.values(programs).filter((p: any) => p.id.toString() !== programId)
+          setOtherPrograms(mockPrograms)
         }
       } catch (error) {
         console.error('Error loading programs:', error)
-        // Fallback to empty array on error
-        setOtherPrograms([])
+        // Fallback to mock data on error
+        const mockPrograms = Object.values(programs).filter((p: any) => p.id.toString() !== programId)
+        setOtherPrograms(mockPrograms)
       } finally {
         setIsLoadingPrograms(false)
       }
@@ -163,47 +179,143 @@ export default function ProgramPage() {
     fetchOtherPrograms()
   }, [programId])
 
-  // Slider settings
-  const reviewsPerPage = 3
-  const programsPerPage = 3
+  // Slider settings with responsive design
+  const reviewsPerPage = isClient ? (width < 640 ? 1 : width < 768 ? 2 : 3) : 3
+  const programsPerPage = isClient ? (width < 640 ? 1 : width < 768 ? 2 : width < 1024 ? 2 : width < 1280 ? 3 : 4) : 4
   const dragThreshold = 50
+  const scrollThrottle = 300
 
   // Calculate total pages
   const totalReviewsPages = Math.ceil(reviews.length / reviewsPerPage)
   const totalProgramsPages = Math.ceil(otherPrograms.length / programsPerPage)
 
-  // Navigation functions
+  // Navigation functions with animation control
+  const paginateReviews = (newDirection: number) => {
+    setReviewsDirection(newDirection)
+    setReviewsCurrentIndex((prevPage) => (prevPage + newDirection + totalReviewsPages) % totalReviewsPages)
+  }
+
+  const paginatePrograms = (newDirection: number) => {
+    setProgramsDirection(newDirection)
+    setProgramsCurrentIndex((prevPage) => (prevPage + newDirection + totalProgramsPages) % totalProgramsPages)
+  }
+
   const nextReviews = () => {
-    setReviewsCurrentIndex((prev) => (prev + 1) % totalReviewsPages)
+    if (isAnimating) return
+    setIsAnimating(true)
+    paginateReviews(1)
+    setTimeout(() => setIsAnimating(false), 400)
   }
 
   const prevReviews = () => {
-    setReviewsCurrentIndex((prev) => (prev - 1 + totalReviewsPages) % totalReviewsPages)
+    if (isAnimating) return
+    setIsAnimating(true)
+    paginateReviews(-1)
+    setTimeout(() => setIsAnimating(false), 400)
   }
 
   const nextPrograms = () => {
-    setProgramsCurrentIndex((prev) => (prev + 1) % totalProgramsPages)
+    if (isAnimating) return
+    setIsAnimating(true)
+    paginatePrograms(1)
+    setTimeout(() => setIsAnimating(false), 400)
   }
 
   const prevPrograms = () => {
-    setProgramsCurrentIndex((prev) => (prev - 1 + totalProgramsPages) % totalProgramsPages)
+    if (isAnimating) return
+    setIsAnimating(true)
+    paginatePrograms(-1)
+    setTimeout(() => setIsAnimating(false), 400)
   }
 
-  // Drag handlers
+  // Drag handlers with animation control
   const handleReviewsDrag = (event: any, info: PanInfo) => {
-    if (info.offset.x > 100) {
-      prevReviews()
-    } else if (info.offset.x < -100) {
-      nextReviews()
+    if (isAnimating) return
+    setIsAnimating(true)
+    if (info.offset.x > dragThreshold) {
+      paginateReviews(-1) // Swiped right
+    } else if (info.offset.x < -dragThreshold) {
+      paginateReviews(1) // Swiped left
     }
+    setTimeout(() => setIsAnimating(false), 400)
   }
 
   const handleProgramsDrag = (event: any, info: PanInfo) => {
-    if (info.offset.x > 100) {
-      prevPrograms()
-    } else if (info.offset.x < -100) {
-      nextPrograms()
+    if (isAnimating) return
+    setIsAnimating(true)
+    if (info.offset.x > dragThreshold) {
+      paginatePrograms(-1) // Swiped right
+    } else if (info.offset.x < -dragThreshold) {
+      paginatePrograms(1) // Swiped left
     }
+    setTimeout(() => setIsAnimating(false), 400)
+  }
+
+  // Handle wheel scroll for sliders with throttle and horizontal detection
+  const handleReviewsWheel = (e: React.WheelEvent) => {
+    const now = Date.now()
+    
+    if (isAnimating) {
+      return
+    }
+    
+    if (now - lastScrollTime < scrollThrottle) {
+      return
+    }
+    
+    const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY)
+    const isShiftScroll = e.shiftKey && Math.abs(e.deltaY) > 0
+    
+    if (!isHorizontalScroll && !isShiftScroll) {
+      return
+    }
+    
+    e.preventDefault()
+    setLastScrollTime(now)
+    setIsAnimating(true)
+    
+    const scrollDirection = isShiftScroll ? e.deltaY : e.deltaX
+    
+    if (scrollDirection > 0) {
+      paginateReviews(1)
+    } else {
+      paginateReviews(-1)
+    }
+    
+    setTimeout(() => setIsAnimating(false), 400)
+  }
+
+  const handleProgramsWheel = (e: React.WheelEvent) => {
+    const now = Date.now()
+    
+    if (isAnimating) {
+      return
+    }
+    
+    if (now - lastScrollTime < scrollThrottle) {
+      return
+    }
+    
+    const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY)
+    const isShiftScroll = e.shiftKey && Math.abs(e.deltaY) > 0
+    
+    if (!isHorizontalScroll && !isShiftScroll) {
+      return
+    }
+    
+    e.preventDefault()
+    setLastScrollTime(now)
+    setIsAnimating(true)
+    
+    const scrollDirection = isShiftScroll ? e.deltaY : e.deltaX
+    
+    if (scrollDirection > 0) {
+      paginatePrograms(1)
+    } else {
+      paginatePrograms(-1)
+    }
+    
+    setTimeout(() => setIsAnimating(false), 400)
   }
 
   // Get current items
@@ -361,45 +473,59 @@ export default function ProgramPage() {
           {/* Title */}
           <h2 className="text-3xl font-bold text-center mb-12">Отзывы выпускников</h2>
           
-          {/* Cards Container - responsive width */}
-          <div className="w-full sm:w-3/4 lg:w-1/2 mx-auto mb-8">
-            <div className="relative overflow-hidden">
-              <AnimatePresence mode="wait">
+          {/* Cards Container - responsive width with fixed height */}
+          <div className="w-full sm:w-3/4 mx-auto mb-8">
+            <div className="relative h-[400px] overflow-x-clip"
+                 onWheel={handleReviewsWheel}
+            >
+              <AnimatePresence initial={false} custom={reviewsDirection}>
                 <motion.div
                   key={reviewsCurrentIndex}
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 cursor-grab active:cursor-grabbing"
+                  custom={reviewsDirection}
+                  className="absolute w-full h-full grid gap-x-4 sm:gap-x-6 cursor-grab active:cursor-grabbing"
+                  style={{ gridTemplateColumns: `repeat(${reviewsPerPage}, minmax(0, 1fr))` }}
                   drag="x"
                   dragConstraints={{ left: 0, right: 0 }}
                   onDragEnd={handleReviewsDrag}
-                  initial={{ opacity: 0, x: 300 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -300 }}
-                  transition={{ duration: 0.3 }}
+                  initial={{
+                    x: reviewsDirection > 0 ? "100%" : "-100%",
+                    opacity: 0,
+                  }}
+                  animate={{
+                    zIndex: 1,
+                    x: 0,
+                    opacity: 1,
+                  }}
+                  exit={{
+                    zIndex: 0,
+                    x: reviewsDirection < 0 ? "100%" : "-100%",
+                    opacity: 0,
+                  }}
+                  transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
                 >
                   {currentReviews.map((review, index) => (
-                    <motion.div
+                    <div
                       key={review.id}
-                      className="aspect-square bg-white rounded-lg relative p-6 shadow-md pointer-events-none flex flex-col justify-center"
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      className="aspect-square bg-white rounded-lg relative p-6 shadow-md pointer-events-none flex flex-col justify-between"
                     >
-                      <div className="flex items-center mb-4">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`w-4 h-4 ${
-                              i < review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
-                            }`}
-                          />
-                        ))}
+                      <div>
+                        <div className="flex items-center mb-4">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`w-4 h-4 ${
+                                i < review.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                        <p className="text-gray-600 mb-4 text-sm line-clamp-6">{review.text}</p>
                       </div>
-                      <p className="text-gray-600 mb-4 text-sm line-clamp-4">{review.text}</p>
                       <div>
                         <p className="font-semibold text-sm">{review.name}</p>
                         <p className="text-xs text-gray-500">{review.position}</p>
                       </div>
-                    </motion.div>
+                    </div>
                   ))}
                 </motion.div>
               </AnimatePresence>
@@ -409,9 +535,14 @@ export default function ProgramPage() {
           {/* Pagination */}
           <div className="flex items-center justify-center gap-4">
             <button
-              onClick={prevReviews}
+              onClick={() => {
+                if (isAnimating) return
+                setIsAnimating(true)
+                prevReviews()
+                setTimeout(() => setIsAnimating(false), 400)
+              }}
               className="p-1 hover:text-gray-600 transition-colors"
-              disabled={totalReviewsPages <= 1}
+              disabled={totalReviewsPages <= 1 || isAnimating}
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -419,9 +550,14 @@ export default function ProgramPage() {
               {reviewsCurrentIndex + 1}/{totalReviewsPages}
             </span>
             <button
-              onClick={nextReviews}
+              onClick={() => {
+                if (isAnimating) return
+                setIsAnimating(true)
+                nextReviews()
+                setTimeout(() => setIsAnimating(false), 400)
+              }}
               className="p-1 hover:text-gray-600 transition-colors"
-              disabled={totalReviewsPages <= 1}
+              disabled={totalReviewsPages <= 1 || isAnimating}
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -457,85 +593,61 @@ export default function ProgramPage() {
             <>
               {/* Cards Grid */}
               <div className="relative overflow-hidden mb-8">
-                <AnimatePresence mode="wait">
+                <AnimatePresence initial={false} custom={programsDirection}>
                   <motion.div
                     key={programsCurrentIndex}
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 cursor-grab active:cursor-grabbing"
+                    custom={programsDirection}
+                    className="cursor-grab active:cursor-grabbing overflow-x-clip"
                     drag="x"
                     dragConstraints={{ left: 0, right: 0 }}
                     onDragEnd={handleProgramsDrag}
-                    initial={{ opacity: 0, x: 300 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -300 }}
-                    transition={{ duration: 0.3 }}
+                    onWheel={handleProgramsWheel}
+                    initial={{
+                      x: programsDirection > 0 ? "100%" : "-100%",
+                      opacity: 0,
+                    }}
+                    animate={{
+                      zIndex: 1,
+                      x: 0,
+                      opacity: 1,
+                    }}
+                    exit={{
+                      zIndex: 0,
+                      x: programsDirection < 0 ? "100%" : "-100%",
+                      opacity: 0,
+                    }}
+                    transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
                   >
+                    <div className="flex gap-8 justify-start">
                     {currentPrograms.map((program, index) => (
-                      <motion.div
+                      <ProgramCard
                         key={program.id}
-                        className="border border-black rounded-lg overflow-hidden"
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: index * 0.1 }}
-                      >
-                        <Link href={`/programs/${program.id}`} className="block hover:shadow-lg transition-shadow">
-                          {/* Image */}
-                          <div className="h-48 relative">
-                            <Image
-                              src={program.image || "/placeholder.jpg"}
-                              alt={program.title}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                          
-                          {/* Content */}
-                          <div className="p-4">
-                            {/* Title */}
-                            <h3 className="font-bold text-lg mb-2">{program.title}</h3>
-                            
-                            {/* Description */}
-                            <p className="text-sm text-gray-600 mb-3 leading-relaxed line-clamp-3">
-                              {program.description}
-                            </p>
-                            
-                            {/* Info labels */}
-                            <div className="space-y-1 mb-4">
-                              <div className="flex items-center gap-2 text-sm">
-                                <Clock className="h-4 w-4" />
-                                <span>{program.duration}</span>
-                              </div>
-                              <div className="flex items-center gap-2 text-sm">
-                                <span>📍</span>
-                                <span>{program.format}</span>
-                              </div>
-                            </div>
-                            
-                            {/* Button */}
-                            <div className="flex justify-between items-center">
-                              <span className="font-bold text-lg">{program.price}</span>
-                              <div className="bg-black text-white rounded-full p-2 hover:bg-gray-800 transition-colors">
-                                <ChevronRight className="h-4 w-4" />
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
-                      </motion.div>
+                        id={program.id}
+                        title={program.title}
+                        description={program.description}
+                        duration={program.duration}
+                        format={program.format}
+                        price={program.price || "По запросу"}
+                        image={program.image || "/placeholder.jpg"}
+                        index={index}
+                      />
                     ))}
+                    </div>
                   </motion.div>
                 </AnimatePresence>
               </div>
               
               {/* Bottom navigation */}
               <div className="flex justify-between items-center">
-                <button className="font-bold text-lg hover:text-gray-600 transition-colors">
+                <Link href="/programs" className="font-bold text-lg hover:text-gray-600 transition-colors">
                   Посмотреть ещё
-                </button>
+                </Link>
                 
                 <div className="flex items-center gap-4">
                   <button
                     onClick={prevPrograms}
                     className="p-1 hover:text-gray-600 transition-colors"
-                    disabled={totalProgramsPages <= 1}
+                    disabled={totalProgramsPages <= 1 || isAnimating}
                   >
                     <ChevronLeft className="h-5 w-5" />
                   </button>
@@ -545,7 +657,7 @@ export default function ProgramPage() {
                   <button
                     onClick={nextPrograms}
                     className="p-1 hover:text-gray-600 transition-colors"
-                    disabled={totalProgramsPages <= 1}
+                    disabled={totalProgramsPages <= 1 || isAnimating}
                   >
                     <ChevronRight className="h-5 w-5" />
                   </button>

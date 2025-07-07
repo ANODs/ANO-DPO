@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import { useSearchParams } from "next/navigation"
 import ProgramCard from "@/components/program-card"
 import ProgramCardSkeleton from "@/components/program-card-skeleton"
 
@@ -88,7 +89,10 @@ const filterOptions = [
 ]
 
 export default function ProgramsList() {
-  const [activeCategory, setActiveCategory] = useState("additional")
+  const searchParams = useSearchParams()
+  const categoryFromUrl = searchParams.get('category') || 'additional'
+  
+  const [activeCategory, setActiveCategory] = useState(categoryFromUrl)
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false)
   const [programs, setPrograms] = useState<Program[]>([])
@@ -127,6 +131,15 @@ export default function ProgramsList() {
   useEffect(() => {
     fetchPrograms()
   }, [activeCategory, selectedFilters])
+
+  // Обновляем активную категорию при изменении URL параметров
+  useEffect(() => {
+    const categoryFromUrl = searchParams.get('category') || 'additional'
+    if (categoryFromUrl !== activeCategory) {
+      setActiveCategory(categoryFromUrl)
+      setSelectedFilters([]) // Сбрасываем фильтры при смене категории через URL
+    }
+  }, [searchParams])
 
   const toggleFilter = (filterId: string) => {
     setSelectedFilters(prev => 
@@ -242,7 +255,7 @@ export default function ProgramsList() {
             {/* Programs Grid */}
             <div className="lg:col-span-3">
               <motion.div 
-                className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+                className="flex flex-wrap justify-start gap-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}

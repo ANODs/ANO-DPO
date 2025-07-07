@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -77,8 +77,13 @@ export default function ExpertsSection() {
   const { width } = useWindowSize()
   const [page, setPage] = useState(0)
   const [direction, setDirection] = useState(0)
+  const [isClient, setIsClient] = useState(false)
 
-  const slidesToShow = width < 480 ? 2 : width < 640 ? 3 : width < 768 ? 3 : width < 1024 ? 4 : 5 // Adjusted for better spacing
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  const slidesToShow = isClient ? (width < 480 ? 2 : width < 640 ? 3 : width < 768 ? 3 : width < 1024 ? 4 : 5) : 3 // Default to 3 for SSR
   const totalPages = Math.ceil(experts.length / slidesToShow)
 
   const paginate = (newDirection: number) => {

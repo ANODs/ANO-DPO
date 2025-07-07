@@ -5,8 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 
 export default function ProgramCategories() {
+  const router = useRouter()
+  
   const categories = [
     {
       title: "Дополнительное образование",
@@ -14,6 +17,7 @@ export default function ProgramCategories() {
         "Система программ обучения, направленных на расширение, углубление и обновление профессиональных знаний, умений и навыков слушателей, независимо от их базового образования",
       programCount: "50+ программ",
       bgColor: "bg-[#D4D2F9]",
+      categoryId: "additional",
     },
     {
       title: "Повышение квалификации",
@@ -22,6 +26,7 @@ export default function ProgramCategories() {
       programCount: "50+ программ",
       image: "./categories-visual-1.svg",
       bgColor: "bg-[#F5F5F5]",
+      categoryId: "qualification",
     },
     {
       title: "Мастер классы",
@@ -30,7 +35,7 @@ export default function ProgramCategories() {
       image: "./categories-visual-2.svg",
       programCount: "50+ программ",
       bgColor: "bg-[#F5F5F5]",
-
+      categoryId: "masterclass",
     },
     {
       title: "Экскурсии",
@@ -38,9 +43,13 @@ export default function ProgramCategories() {
         "Система программ обучения, направленных на расширение, углубление и обновление профессиональных знаний, умений и навыков слушателей, независимо от их базового образования",
       programCount: "50+ программ",
       bgColor: "bg-[#F2FCBF]",
-
+      categoryId: "excursion",
     },
   ]
+
+  const handleCategoryClick = (categoryId: string) => {
+    router.push(`/programs?category=${categoryId}`)
+  }
 
   return (
     <motion.section
@@ -73,7 +82,7 @@ export default function ProgramCategories() {
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className={`h-full ${category.bgColor} relative border-0 hover:shadow-lg transition-shadow duration-300`}>
+              <Card className={`h-full ${category.bgColor} relative border-0 hover:shadow-lg transition-shadow duration-300 overflow-clip`}>
                 <CardHeader className="pb-3 lg:pb-6 relative z-10">
                   <CardTitle className={`text-lg lg:text-2xl `}>{category.title}</CardTitle>
                 </CardHeader>
@@ -86,7 +95,11 @@ export default function ProgramCategories() {
                       {category.programCount}
                     </Badge>
                     <div>
-                      <Button variant="outline" className="w-full bg-[#1a1a1a] text-white h-11 lg:h-auto text-sm lg:text-base">
+                      <Button 
+                        variant="outline" 
+                        className="w-full bg-[#1a1a1a] text-white h-11 lg:h-auto text-sm lg:text-base"
+                        onClick={() => handleCategoryClick(category.categoryId)}
+                      >
                         Посмотреть все программы
                       </Button>
                     </div>

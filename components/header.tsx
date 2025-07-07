@@ -44,7 +44,7 @@ export default function Header() {
       >
         <div className="container mx-auto px-4 py-4">
           {/* Desktop Navigation */}
-          <div className="hidden lg:grid lg:grid-cols-3 gap-4 items-center">
+          <div className="hidden lg:flex lg:items-center lg:justify-between">
             {/* Logo */}
             <motion.div whileHover={{ scale: 1.05 }} className="flex items-center space-x-3">
              <Link href="/">
@@ -53,8 +53,8 @@ export default function Header() {
             </motion.div>
 
             {/* Navigation Menu */}
-            <nav className="flex justify-center items-center">
-              <ul className="flex justify-center items-center gap-8">
+            <nav className="flex items-center">
+              <ul className="flex items-center gap-8">
                 {menuItems.map((item, index) => (
                   <motion.li
                     key={item.name}
@@ -65,9 +65,10 @@ export default function Header() {
                   >
                     <Link
                       href={item.href}
-                      className="text-gray-700 hover:text-gray-800 transition-colors font-medium text-sm"
+                      className="text-gray-700 hover:text-gray-800 transition-all duration-300 font-medium text-sm py-2 px-1 relative group"
                     >
                       {item.name}
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gray-800 transition-all duration-300 group-hover:w-full"></span>
                     </Link>
                   </motion.li>
                 ))}
@@ -79,7 +80,6 @@ export default function Header() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 }}
-              className="flex justify-end"
             >
               <Link href='https://lms.anoacademy.ru' target="_blank" className="bg-black rounded-xl text-white hover:bg-gray-800 px-5 py-4 text-[16px]">Перейти в личный кабинет</Link>
             </motion.div>

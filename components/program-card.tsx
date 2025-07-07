@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { Clock, MapPin, ChevronRight } from "lucide-react"
+import { Clock, ChevronRight } from "lucide-react"
 import Link from "next/link"
 
 interface ProgramCardProps {
@@ -28,58 +28,57 @@ export default function ProgramCard({
 }: ProgramCardProps) {
   return (
     <motion.div
-      className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
+      className="w-[313px] h-[444px] bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm relative grid grid-rows-[172px_auto_auto_auto_1fr] gap-3 p-4"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.1 * index }}
     >
-      {/* Image */}
-      <div className="h-48 relative">
-        <Image
-          src={image}
-          alt={title}
-          fill
-          className="object-cover"
-        />
+      {/* 1. Изображение */}
+      <div className="relative rounded-md overflow-hidden">
+        <Image src={image} alt={title} fill className="object-cover" />
       </div>
-      
-      {/* Content */}
-      <div className="p-6">
-        <h3 className="font-bold text-lg mb-3">{title}</h3>
-        <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-          {description}
-        </p>
-        
-        {/* Info */}
-        <div className="space-y-2 mb-4">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <Clock className="h-4 w-4" />
-            <span>{duration}</span>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <MapPin className="h-4 w-4" />
-            <span>{format}</span>
-          </div>
+
+      {/* 2. Заголовок */}
+      <h3 className="text-xl font-bold text-gray-900 leading-tight m-0">
+        {title}
+      </h3>
+
+      {/* 3. Описание с line-clamp */}
+      <p className="text-gray-600 text-base leading-[1.4] line-clamp-2 overflow-hidden break-words m-0">
+        {description}
+      </p>
+
+      {/* 4. Мета-данные: время + формат */}
+      <div className="flex flex-col text-gray-500 text-sm gap-y-1">
+        {/* первая строка: иконка + время */}
+        <div className="flex items-center gap-x-2">
+          <Clock size={16} className="text-gray-400" />
+          <span className="font-medium text-gray-700">
+            {duration}
+          </span>
         </div>
-        
-        {/* Bottom */}
-        <div className="flex items-center justify-between">
-          {price ? (
-            <span className="font-bold text-lg">{price}</span>
-          ) : (
-            <div></div>
-          )}
-          
-          <Link href={`/programs/${id}`}>
-            <button className="flex items-center gap-2 text-black hover:text-gray-600 transition-colors">
-              <span className="font-medium">Подробнее</span>
-              <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
-                <ChevronRight className="w-3 h-3 text-white" />
-              </div>
-            </button>
-          </Link>
+        {/* вторая строка: формат */}
+        <div>
+          <span>
+            {format}
+          </span>
         </div>
       </div>
+
+      {/* 5. Ссылка «Подробнее» */}
+      <Link
+        href={`/programs/${id}`}
+        className="absolute bottom-4 left-4 right-4 no-underline"
+      >
+        <div className="flex justify-between items-center">
+          <span className="text-base font-semibold text-gray-900">
+            Подробнее
+          </span>
+          <div className="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center">
+            <ChevronRight size={16} className="text-white" />
+          </div>
+        </div>
+      </Link>
     </motion.div>
   )
 }

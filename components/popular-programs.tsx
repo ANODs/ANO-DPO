@@ -2,96 +2,36 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Clock, Monitor, ChevronLeft, ChevronRight } from "lucide-react"
-import Image from "next/image"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useWindowSize } from "@/hooks/use-window-size"
 import Link from "next/link"
+import ProgramCard from "@/components/program-card"
 
 export default function PopularPrograms() {
-  const programs = [
+  // Mock data fallback - только 2 карточки
+  const mockPrograms = [
     {
       id: 1,
-      title: "Робототехника",
-      description: "Краткое описание. Краткое описание.",
-      duration: "16 ч.",
-      format: "Дистанционно",
-      image: "/placeholder.svg?height=180&width=280",
+      title: "Промышленная робототехника (ДПО)",
+      description: "Подготовка специалистов в области проектирования, программирования и обслуживания промышленных роботов",
+      duration: "72 ч.",
+      format: "Очно/Дистанционно",
+      image: "/programms/robototech.png",
+      price: "По запросу"
     },
     {
       id: 2,
-      title: "Цифровые технологии",
-      description: "Краткое описание. Краткое описание.",
-      duration: "24 ч.",
-      format: "Дистанционно",
-      image: "/placeholder.svg?height=180&width=280",
-    },
-    {
-      id: 3,
-      title: "Проектное управление",
-      description: "Краткое описание. Краткое описание.",
-      duration: "32 ч.",
-      format: "Дистанционно",
-      image: "/placeholder.svg?height=180&width=280",
-    },
-    {
-      id: 4,
-      title: "Искусственный интеллект",
-      description: "Краткое описание. Краткое описание.",
-      duration: "40 ч.",
-      format: "Дистанционно",
-      image: "/placeholder.svg?height=180&width=280",
-    },
-    {
-      id: 5,
-      title: "Веб-разработка",
-      description: "Краткое описание. Краткое описание.",
+      title: "Архитектор будущего: Нейросетевое искусство (ДПО)",
+      description: "Подготовка креативных профессионалов для создания уникального контента с помощью нейросетей",
       duration: "48 ч.",
-      format: "Дистанционно",
-      image: "/placeholder.svg?height=180&width=280",
-    },
-    {
-      id: 6,
-      title: "UX/UI Дизайн",
-      description: "Краткое описание. Краткое описание.",
-      duration: "36 ч.",
-      format: "Дистанционно",
-      image: "/placeholder.svg?height=180&width=280",
-    },
-    {
-      id: 7,
-      title: "Анализ данных",
-      description: "Краткое описание. Краткое описание.",
-      duration: "30 ч.",
-      format: "Дистанционно",
-      image: "/placeholder.svg?height=180&width=280",
-    },
-    {
-      id: 8,
-      title: "Кибербезопасность",
-      description: "Краткое описание. Краткое описание.",
-      duration: "50 ч.",
-      format: "Дистанционно",
-      image: "/placeholder.svg?height=180&width=280",
-    },
-    {
-      id: 9,
-      title: "Интернет-маркетинг",
-      description: "Краткое описание. Краткое описание.",
-      duration: "20 ч.",
-      format: "Дистанционно",
-      image: "/placeholder.svg?height=180&width=280",
-    },
-    {
-      id: 10,
-      title: "Финансовая грамотность",
-      description: "Краткое описание. Краткое описание.",
-      duration: "18 ч.",
-      format: "Дистанционно",
-      image: "/placeholder.svg?height=180&width=280",
-    },
+      format: "Очно/Дистанционно",
+      image: "/programms/neural.jpg",
+      price: "По запросу"
+    }
   ]
+
+  const [programs, setPrograms] = useState(mockPrograms)
+  const [isLoading, setIsLoading] = useState(true)
 
   const { width } = useWindowSize()
   const [page, setPage] = useState(0)
@@ -102,6 +42,31 @@ export default function PopularPrograms() {
 
   useEffect(() => {
     setIsClient(true)
+  }, [])
+
+  useEffect(() => {
+    const fetchPopularPrograms = async () => {
+      setIsLoading(true)
+      try {
+        const response = await fetch('/api/popular-programs')
+        const data = await response.json()
+        
+        if (data.programs && data.programs.length > 0) {
+          setPrograms(data.programs)
+        } else {
+          // Fallback to mock data if no programs from API
+          setPrograms(mockPrograms)
+        }
+      } catch (error) {
+        console.error('Error loading popular programs:', error)
+        // Fallback to mock data on error
+        setPrograms(mockPrograms)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchPopularPrograms()
   }, [])
 
   // Prevent hydration mismatch: use default values for SSR
@@ -233,50 +198,21 @@ export default function PopularPrograms() {
                 animate="center"
                 exit="exit"
                 transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-                className="absolute w-full h-full grid gap-x-4 sm:gap-x-6"
-                style={{ gridTemplateColumns: `repeat(${slidesToShow}, minmax(0, 1fr))` }}
+                className="absolute w-full h-full flex gap-4 sm:gap-6"
               >
-                {currentPrograms.map((program) => (
-                  <Card
-                    key={program.id}
-                    className="p-[15px] h-full flex flex-col justify-center items-center border-[1px] border-black rounded-[10px] max-w-full"
-                  >
-                    <CardHeader className="p-0 mb-3">
-                      <div className="relative w-full max-w-[247px] h-[194px] rounded-[10px] overflow-hidden mx-auto">
-                        <Image
-                          src={program.image || "/placeholder.svg"}
-                          alt={program.title}
-                          fill
-                          className="object-cover"
-                          style={{ pointerEvents: "none" }}
-                        />
-                      </div>
-                    </CardHeader>
-                    <CardContent className="p-0 flex flex-col flex-grow">
-                      <CardTitle className="text-[22px] font-semibold mb-3">
-                        {program.title}
-                      </CardTitle>
-                      <p className="mb-3 flex-grow">{program.description}</p>
-                      <div className="flex flex-col text-sm mb-3">
-                        <div className="flex items-center space-x-1">
-                          <Clock className="h-[21px] w-[21px]" />
-                          <span className="text-[14px]">{program.duration}</span>
-                        </div>
-                        <div className="flex items-center  space-x-1">
-                          <span>{program.format}</span>
-                        </div>
-                      </div>
-                      <Button
-                        variant="link"
-                        className="h-min p-0 text-[18px] flex justify-between items-center group"
-                      >
-                        Подробнее
-                        <span className="ml-1.5 bg-brand-dark-button text-white rounded-full p-0.5 group-hover:bg-blue-700 transition-colors">
-                          <ChevronRight className="h-3 w-3" />
-                        </span>
-                      </Button>
-                    </CardContent>
-                  </Card>
+                {currentPrograms.map((program, index) => (
+                  <div key={program.id} className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3">
+                    <ProgramCard
+                      id={program.id}
+                      title={program.title}
+                      description={program.description}
+                      duration={program.duration}
+                      format={program.format}
+                      price={program.price || "По запросу"}
+                      image={program.image || "/placeholder.jpg"}
+                      index={index}
+                    />
+                  </div>
                 ))}
               </motion.div>
             </AnimatePresence>
