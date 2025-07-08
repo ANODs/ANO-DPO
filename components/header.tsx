@@ -43,7 +43,7 @@ export default function Header() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="bg-white shadow-sm border-b sticky top-0 z-50"
       >
-        <div className="container mx-auto px-0 px-0 py-4">
+        <div className="container mx-auto px-4 lg:px-0 py-4">
           {/* Desktop Navigation */}
           <div className="hidden lg:flex lg:items-center lg:justify-between">
             {/* Logo */}

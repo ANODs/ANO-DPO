@@ -122,7 +122,7 @@ export default function ExpertsSection() {
         </motion.h2>
 
         <motion.div
-          className="relative overflow-hidden h-[200px] sm:h-[220px] md:h-[240px]" // Adjusted height
+          className="relative overflow-hidden h-[200px] sm:h-[200px] md:h-[220px]" // Adjusted height
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           onDragEnd={(event, info) => {
@@ -168,7 +168,7 @@ export default function ExpertsSection() {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
           viewport={{ once: true }}
-          className="flex justify-center items-center space-x-3 mt-8"
+          className="flex justify-center items-center space-x-3"
         >
           <Button
             variant="outline"

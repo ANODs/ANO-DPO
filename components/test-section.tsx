@@ -13,7 +13,7 @@ export default function TestSection() {
       viewport={{ once: true }}
       className="mx-0 lg:mx-4"
     >
-      <div className="container mx-auto px-0 bg-[#F2FCBF] py-8 lg:py-16 rounded-none lg:rounded-[26px]">
+      <div className="container mx-auto p-4 bg-[#F2FCBF] lg:p-6 rounded-none lg:rounded-[26px]">
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-6 lg:space-y-0 lg:gap-8">
           <motion.div
             initial={{ opacity: 0, x: -30 }}

@@ -52,7 +52,7 @@ export default function TestimonialsSection() {
       viewport={{ once: true }}
       className="py-8 lg:pt-0 lg:pb-24 bg-white"
     >
-      <div className="container mx-auto p-6">
+      <div className="container max-w-5xl mx-auto p-6">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -64,7 +64,7 @@ export default function TestimonialsSection() {
         </motion.h2>
 
         <motion.div
-          className="relative overflow-hidden h-[280px] sm:h-[300px] md:h-[320px]" // Adjusted height for typical certificate aspect ratio
+          className="relative overflow-hidden h-[280px] sm:h-[300px] md:h-[470px]" // Adjusted height for typical certificate aspect ratio
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           onDragEnd={(event, info) => {
@@ -87,13 +87,13 @@ export default function TestimonialsSection() {
               {currentTestimonials.map((testimonial) => (
                 <div
                   key={testimonial.id}
-                  className="relative h-full w-full max-w-[180px] sm:max-w-[200px] md:max-w-[220px] mx-auto rounded-lg overflow-hidden shadow-md border border-gray-200"
+                  className="relative h-full w-full max-w-[180px] sm:max-w-[200px] md:max-w-[310px] mx-auto rounded-lg overflow-hidden shadow-md border border-gray-200"
                 >
                   <Image
                     src={testimonial.image || "/placeholder.svg"}
                     alt={testimonial.alt}
                     fill
-                    className="object-contain" // Use contain if aspect ratio varies, or cover if consistent
+                    className="object-contain h-[470px]" // Use contain if aspect ratio varies, or cover if consistent
                     style={{ pointerEvents: "none" }}
                   />
                 </div>
@@ -107,7 +107,7 @@ export default function TestimonialsSection() {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
           viewport={{ once: true }}
-          className="flex justify-between items-center space-x-3 mt-8"
+          className="flex justify-center items-center space-x-3 mt-8"
         >
           <Button
             variant="outline"
@@ -118,16 +118,6 @@ export default function TestimonialsSection() {
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <div className="flex justify-center gap-1">
-            {Array.from({ length: totalPages }).map((_, index) => (
-              <div
-                key={index}
-                className={`w-[10px] h-[10px] rounded-full ${
-                  page === index ? "bg-[#666]" : "bg-[#d9d9d9]"
-                }`}
-              />
-            ))}
-          </div>
 
           <Button
             variant="outline"

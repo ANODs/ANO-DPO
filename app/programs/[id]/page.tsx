@@ -347,8 +347,8 @@ export default function ProgramPage() {
           />
         </div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="relative z-10 container mx-auto px-4 sm:px-0 py-12 lg:py-20">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-8 lg:gap-12">
             {/* Left Column - Content */}
             <div className="space-y-6">
               {/* Надзаголовок */}
@@ -357,7 +357,7 @@ export default function ProgramPage() {
               </div>
               
               {/* Главный заголовок */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight" style={{fontSize: '50px'}}>
                 {program.title}
               </h1>
               
@@ -376,10 +376,7 @@ export default function ProgramPage() {
                   <div className="text-sm font-medium text-gray-700">Продолжительность</div>
                   <div className="text-base font-semibold text-black">{program.duration}</div>
                 </div>
-                <div className="bg-white border border-black rounded-lg px-4 py-3">
-                  <div className="text-sm font-medium text-gray-700">Уровень</div>
-                  <div className="text-base font-semibold text-black">{program.level}</div>
-                </div>
+              
               </div>
               
               {/* Action buttons */}
@@ -401,13 +398,13 @@ export default function ProgramPage() {
             
             {/* Right Column - Image */}
             <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden">
+              <div className="relative rounded-2xl overflow-hidden border-[1px] max-w-[400px] max-h-[400px] w-[400px] h-[400px]">
                 <Image 
                   src={program.image} 
                   alt={program.title}
-                  width={500}
+                  width={400}
                   height={400}
-                  className="w-full h-auto object-cover"
+                  className="w-full h-full object-cover aspect-square"
                 />
               </div>
             </div>
@@ -417,7 +414,7 @@ export default function ProgramPage() {
 
       {/* Description Section */}
       <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-0">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Main Content - 3/4 width */}
             <div className="lg:col-span-3 space-y-8">
@@ -480,7 +477,7 @@ export default function ProgramPage() {
 
       {/* Reviews Section */}
       <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-0">
           {/* Title */}
           <h2 className="text-3xl font-bold text-center mb-12">Отзывы выпускников</h2>
           
@@ -578,7 +575,7 @@ export default function ProgramPage() {
 
       {/* Other Programs Section */}
       <section className="py-16 pb-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-0">
           {/* Title */}
           <h2 className="text-2xl font-bold mb-12">Другие программы</h2>
           
