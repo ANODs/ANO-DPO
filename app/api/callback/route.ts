@@ -37,21 +37,54 @@ export async function POST(request: NextRequest) {
     });
 
     // --- Отправка в Unisender ---
+    const unisenderData = {
+      email: 'contact.anodpo@yandex.ru',
+      contactEmail: validatedData.email,
+      contactPhone: validatedData.phone,
+      lastName: validatedData.lastName,
+      firstName: validatedData.firstName,
+      middleName: validatedData.middleName,
+      consentToProcessing: validatedData.consent,
+    };
+    
+    console.log('Sending to Unisender:', {
+      url: unisenderApiUrl,
+      data: unisenderData
+    });
+    
     const unisenderPromise = fetch(unisenderApiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: 'contact.anodpo@yandex.ru',
-        contactEmail: validatedData.email,
-        contactPhone: validatedData.phone,
-        lastName: validatedData.lastName,
-        firstName: validatedData.firstName,
-        middleName: validatedData.middleName,
-        consentToProcessing: validatedData.consent,
-      }),
+      body: JSON.stringify(unisenderData),
     });
 
     const results = await Promise.allSettled([telegramPromise, unisenderPromise]);
+
+    // Детальное логирование результатов
+    const [telegramResult, unisenderResult] = results;
+    
+    console.log('Telegram result:', {
+      status: telegramResult.status,
+      ok: telegramResult.status === 'fulfilled' ? telegramResult.value.ok : false,
+      statusCode: telegramResult.status === 'fulfilled' ? telegramResult.value.status : 'N/A'
+    });
+    
+    console.log('Unisender result:', {
+      status: unisenderResult.status,
+      ok: unisenderResult.status === 'fulfilled' ? unisenderResult.value.ok : false,
+      statusCode: unisenderResult.status === 'fulfilled' ? unisenderResult.value.status : 'N/A'
+    });
+    
+    // Проверяем ответы от каждого сервиса
+    if (unisenderResult.status === 'fulfilled' && !unisenderResult.value.ok) {
+      const unisenderText = await unisenderResult.value.text();
+      console.error('Unisender API error response:', unisenderText);
+    }
+    
+    if (telegramResult.status === 'fulfilled' && !telegramResult.value.ok) {
+      const telegramText = await telegramResult.value.text();
+      console.error('Telegram API error response:', telegramText);
+    }
 
     const successful = results.every((result) => result.status === 'fulfilled' && result.value.ok);
 
